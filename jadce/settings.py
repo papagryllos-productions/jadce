@@ -68,6 +68,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
 
-# Media upload location:
-# MEDIA_ROOT = "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.abspath(os.path.dirname('../' +  __file__)) + "/images/"
+# Media upload location (usually "/var/www/example.com/media/"):
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")

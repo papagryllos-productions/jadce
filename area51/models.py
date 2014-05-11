@@ -24,7 +24,7 @@ class Event(models.Model):
     event_desc = models.TextField()
     category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
     date_of_creation = models.DateField(auto_now=True)
-    photo = models.ImageField(upload_to="aliens/", null=True, blank=True)
+    photo = models.ImageField(upload_to="aliens", null=True, blank=True)
 
 class Admin(models.Model):
     def __str__(self):
