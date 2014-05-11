@@ -23,6 +23,7 @@ class Event(models.Model):
     creator = models.ForeignKey(User)
     event_desc = models.TextField()
     category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
+    is_fixed = models.BooleanField(default=True)
     date_of_creation = models.DateField(auto_now=True)
     photo = models.ImageField(upload_to="aliens", null=True, blank=True)
 
