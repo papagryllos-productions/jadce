@@ -1,0 +1,9 @@
+{% if latest_users %}
+    <ul>
+    {% for user in latest_users %}
+        <li><p>{{ user.username }}</p></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users are available.</p>
+{% endif %}
