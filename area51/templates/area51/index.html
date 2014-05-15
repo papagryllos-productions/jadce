@@ -1,9 +1,15 @@
-{% if latest_users %}
-    <ul>
-    {% for user in latest_users %}
-        <li><p>{{ user.username }}</p></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No users are available.</p>
-{% endif %}
+{% extends "area51/base.html" %}
+
+{% block content %}
+    <div class="col-md-4">
+    {% if latest_users %}
+        <ul class="list-group">
+        {% for user in latest_users %}
+            <li class="list-group-item"><p>{{ user.username }}</p></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users are available.</p>
+    {% endif %}
+    </div>
+{% endblock %}
