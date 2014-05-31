@@ -50,30 +50,35 @@
       </div>
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <!-- Main jumbotron -->
     <div class="container">
       <div class="jumbotron">
           <h1>Hello, worlds</h1>
           <p>The first alien reporting platform of the planet. Report Alien and UFOs sightings and see all the latest news.</p>
-          <p><a class="btn btn-primary btn-lg" role="button">Create an account now &raquo;</a></p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Create an account now &raquo;</a></p>
       </div>
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>AJAX STATISTICS HERE -- TODO</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>AJAX STATISTICS HERE -- TODO</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
+        <!-- List of data in the first column and the map in the second -->
         {% block content %}
         {% endblock %}
+        <div class="col-md-7"> <!-- These need to add up to 12 -->
+          <h3 align="center">Latest Sightings</h2>
+          <div id="map-canvas" class="container"> <!-- map here --> </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- TODO: AJAX -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Sightings dealt with:</h2>
+          <p>AJAX STATISTICS HERE -- TODO</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
       </div>
 
       <hr>
@@ -89,7 +94,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAycmK-3YhwtVLVR8lAQ3sD3zGFy1gfSrk&sensor=true&output=embed"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/maps.js"></script>
   </body>
 </html>

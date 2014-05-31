@@ -4,3 +4,9 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
 }
+
+#map-canvas {
+  /* TODO: percetages for better sizes? */
+  width: 650px;
+  height: 500px;
+}
