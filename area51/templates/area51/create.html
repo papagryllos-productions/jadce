@@ -1,0 +1,65 @@
+{% extends "area51/base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Create an account</h1>
+  <hr>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <h6>upload a profile pic</h6>
+        <input type="file" class="form-control">
+      </div>
+    </div>
+
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+      <h3>Personal info</h3>
+
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" placeholder="John Apleesed">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" placeholder="johnapleesed@company.tld">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" placeholder="john">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Password:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="11111122333">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Confirm password:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="11111122333">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="button" class="btn btn-primary" value="Create">
+            <span></span>
+            <input type="reset" class="btn btn-danger" value="Cancel">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+{% endblock %}

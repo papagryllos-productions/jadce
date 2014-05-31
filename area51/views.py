@@ -14,3 +14,6 @@ def home(request):
 def details(request, username):
     user = get_object_or_404(User, pk=username)
     return render(request, 'area51/details.html', {'user': user})
+
+def create_account(request):
+    return render(request, 'area51/create.html')
