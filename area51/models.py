@@ -10,12 +10,13 @@ ALIENCATEGORIES = (
 
 class Event(models.Model):
     def __str__(self):
-        return self.event_desc
+        return self.title
     def get_absolute_url(self):
         return "/event/%i/" % self.id
     # TODO: geolocation field
+    title = models.CharField(max_length=100)
     creator = models.ForeignKey(User)
-    event_desc = models.TextField()
+    description = models.TextField()
     category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
     dealt = models.BooleanField(default=False)
     date_of_creation = models.DateField(auto_now=True)

@@ -50,7 +50,7 @@
       {% if latest_events %}
         <ul class="list-group">
           {% for event in latest_events %}
-            <li class="list-group-item"><p>{{ event.date_of_creation }}</p></li>
+            <li class="list-group-item"><p>{{ event.title }}</p></li>
           {% endfor %}
         </ul>
       {% else %}
