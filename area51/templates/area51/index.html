@@ -40,7 +40,13 @@
   <div class="row">
     <!-- List of data in the first column and the map in the second -->
     <div class="col-md-5">
-      <h3 align="center">Events</h3>
+      <p align="left"><strong>Events: </strong>
+        <a align="right" href="feed">
+          <button type="button" class="btn btn-default btn-xs pull-right">
+            <i class="fa fa-rss fa-fw"></i> RSS
+          </button>
+        </a>
+      </p>
       {% if latest_events %}
         <ul class="list-group">
           {% for event in latest_events %}

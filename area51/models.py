@@ -19,6 +19,8 @@ class User(models.Model):
 class Event(models.Model):
     def __str__(self):
         return self.event_desc
+    def get_absolute_url(self):
+        return "/event/%i/" % self.id
     # TODO: geolocation field
     creator = models.ForeignKey(User)
     event_desc = models.TextField()
