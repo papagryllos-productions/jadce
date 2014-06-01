@@ -11,9 +11,9 @@ def home(request):
     context = {'latest_users': latest_users}
     return render(request, 'area51/index.html', context)
 
-def details(request, username):
+def user(request, username):
     user = get_object_or_404(User, pk=username)
-    return render(request, 'area51/details.html', {'user': user})
+    return render(request, 'area51/user.html', {'user': user})
 
 def create_account(request):
     return render(request, 'area51/create.html')
