@@ -40,15 +40,15 @@
   <div class="row">
     <!-- List of data in the first column and the map in the second -->
     <div class="col-md-5">
-      <h3 align="center">Users</h3> <!-- TODO: need to change this to list of events -->
-      {% if latest_users %}
+      <h3 align="center">Events</h3>
+      {% if latest_events %}
         <ul class="list-group">
-          {% for user in latest_users %}
-            <li class="list-group-item"><p>{{ user.username }}</p></li>
+          {% for event in latest_events %}
+            <li class="list-group-item"><p>{{ event.date_of_creation }}</p></li>
           {% endfor %}
         </ul>
       {% else %}
-        <div class="alert alert-info"><p>No users are available.</p></div>
+        <div class="alert alert-info"><p>No events yet.</p></div>
       {% endif %}
     </div>
     <div class="col-md-7"> <!-- These need to add up to 12 -->

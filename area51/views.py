@@ -6,9 +6,9 @@ import area51.models as M
 
 # The main page
 def home(request):
-    # using django db api
-    latest_users = M.User.objects.all().order_by('-phone')[:5]
-    context = {'latest_users': latest_users}
+    latest_events = M.Event.objects.all().order_by('-date_of_creation')[:20]
+    # these are the available variables inside the template:
+    context = {'latest_events': latest_events}
     return render(request, 'area51/index.html', context)
 
 # User profile page
