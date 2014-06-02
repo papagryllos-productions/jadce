@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 from django.contrib.auth.models import AbstractUser
 
 ALIENCATEGORIES = (
@@ -32,3 +33,7 @@ class Contribution(models.Model):
     event_id = models.ForeignKey(Event)
     date_of_contrib = models.DateField(auto_now=True)
     comment = models.TextField()
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User

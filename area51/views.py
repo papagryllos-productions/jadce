@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.shortcuts import render, get_object_or_404
 import area51.models as M
@@ -23,3 +23,13 @@ def user(request, username):
 def data(request):
     count = len(M.Event.objects.all())
     return HttpResponse(count)
+
+# Create user view
+def adduser(request):
+    if request.method == "POST":
+        uf = UserForm(request.POST)
+        if uf.is_valid():
+            uf.save()
+            return django.http.HttpResponseRedirect('www.yolo.com')
+    else:
+        return django.http.HttpResponseRedirect('www.pswli.com')
