@@ -1,4 +1,5 @@
 {% extends "area51/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="container">
@@ -64,26 +65,5 @@
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>
-
-$("#send").click(function() {
-  $.ajax({
-    type: "POST",
-    url: '/api/adduser',
-    data: $(this).closest("form").serialize(),
-    success: function() {
-      // TODO: something here?
-    },
-    failure: function() {
-      alert("Something went wrong! Try again.");
-    }
-  });
-});
-
-$("#clear").click(function() {
-    $(this).closest("form").find("input[type=text], textarea").val("");
-});
-
-</script>
-
+<script type="text/javascript" src="{% static "js/forms.js" %}"></script>
 {% endblock %}
