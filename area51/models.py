@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 ALIENCATEGORIES = (
     (0, 'UFO'),
@@ -7,6 +7,9 @@ ALIENCATEGORIES = (
     (2, 'Strange Lights'),
     (3, 'Glitch in the Matrix'),
 )
+
+class User(AbstractUser):
+    telephone = models.IntegerField(max_length=10, null=True)
 
 class Event(models.Model):
     def __str__(self):
@@ -25,8 +28,7 @@ class Event(models.Model):
 class Contribution(models.Model):
     def __str__(self):
         return self.comment
-    admin_name = models.ForeignKey(Admin)
+    admin_name = models.ForeignKey(User)
     event_id = models.ForeignKey(Event)
     date_of_contrib = models.DateField(auto_now=True)
     comment = models.TextField()
-

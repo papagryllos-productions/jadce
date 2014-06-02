@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
 import area51.models as M
 
 # The main page
@@ -14,6 +13,11 @@ def home(request):
 # Create a new account page
 def create_account(request):
     return render(request, 'area51/create.html')
+
+# user profile view
+def user(request, username):
+    user = get_object_or_404(M.User, username=username)
+    return render(request, 'area51/user.html', {'user': user})
 
 # Auxiliary view for AJAX requests
 def data(request):

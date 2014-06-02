@@ -46,6 +46,7 @@ ROOT_URLCONF = 'jadce.urls'
 
 WSGI_APPLICATION = 'jadce.wsgi.application'
 
+AUTH_USER_MODEL = 'area51.User'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

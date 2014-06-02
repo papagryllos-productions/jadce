@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-
 from area51 import views
 from area51.feeds import LatestEntriesFeed
 
