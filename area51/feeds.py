@@ -12,7 +12,7 @@ class LatestEntriesFeed(Feed):
         return M.Event.objects.all().order_by('-date_of_creation')[:20]
 
     def item_title(self, item):
-        return item.creator
+        return "%s by %s" % (item.title, item.creator)
 
     def item_description(self, item):
-        return item.event_desc
+        return item.description
