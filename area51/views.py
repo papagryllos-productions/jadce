@@ -30,6 +30,7 @@ def adduser(request):
         uf = UserForm(request.POST)
         if uf.is_valid():
             uf.save()
-            return django.http.HttpResponseRedirect('www.yolo.com')
+            return HttpResponseRedirect('www.yolo.com')
     else:
-        return django.http.HttpResponseRedirect('www.pswli.com')
+        uf = M.UserForm
+    return render(request, 'area51/user.html', {'form': uf})
