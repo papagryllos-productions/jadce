@@ -14,7 +14,7 @@
       <a class="navbar-brand" href="#">Area 51</a>
     </div>
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" role="form">
+      <form method="post" class="navbar-form navbar-right" role="form"> {% csrf_token %}
         <div class="form-group">
             <input name="username" type="text" placeholder="Username" class="form-control">
         </div>

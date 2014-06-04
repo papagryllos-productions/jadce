@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     url(r'^u/(?P<username>\w+)/$', views.user, name='user'),
     url(r'^api/data/$', views.data, name='data'),
     url(r'^api/adduser/$', views.adduser, name='adduser'),
+    url(r'^api/login/$', views.homelogin, name='homelogin'),
     url(r'^feed/$', LatestEntriesFeed()),
 )

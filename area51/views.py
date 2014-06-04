@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
+from django.core.context_processors import csrf
 from django.shortcuts import render, get_object_or_404
 import area51.models as M
 
@@ -24,13 +25,24 @@ def data(request):
     count = len(M.Event.objects.all())
     return HttpResponse(count)
 
-# Create user view
+# POST view for creating a user
 def adduser(request):
+    c = {}
+    c.update(csrf(request))
     if request.method == "POST":
         uf = UserForm(request.POST)
         if uf.is_valid():
             uf.save()
-            return HttpResponseRedirect('www.yolo.com')
+        # we just return data here, the redirection will be handled by JS
+        return HttpResponse('/login')
     else:
-        uf = M.UserForm
-    return render(request, 'area51/user.html', {'form': uf})
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
+
+# POST view for creating a user
+def homelogin(request):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "POST":
+        return HttpResponse('/home?')
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
