@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.context_processors import csrf
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404
 import area51.models as M
 
@@ -34,15 +35,22 @@ def adduser(request):
         if uf.is_valid():
             uf.save()
         # we just return data here, the redirection will be handled by JS
-        return HttpResponse('/login')
+        return HttpResponse('/TODO')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
-# POST view for creating a user
+# POST view for loging in
 def homelogin(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        return HttpResponse('/home?')
+        # return HttpResponse(request.POST['username'])
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # TODO: return to same page, but logged in
+            return HttpResponse('/u/' + username)
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
