@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^api/data/$', views.data, name='data'),
     url(r'^api/adduser/$', views.adduser, name='adduser'),
     url(r'^api/login/$', views.homelogin, name='homelogin'),
+    url(r'^api/logout/$', views.homelogout, name='homelogout'),
     url(r'^feed/$', LatestEntriesFeed()),
 )
