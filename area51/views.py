@@ -14,7 +14,7 @@ def home(request):
 
 # Create a new account page
 def create_account(request):
-    return render(request, 'area51/create.html')
+    return render(request, 'area51/create_account.html')
 
 # user profile view
 def user(request, username):
