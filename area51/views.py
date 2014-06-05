@@ -31,10 +31,20 @@ def adduser(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        uf = UserForm(request.POST)
-        if uf.is_valid():
-            uf.save()
-        # we just return data here, the redirection will be handled by JS
+        # Let's check passwords first. This should probably happen in JS
+        if request.POST['password1'] == request.POST['password2']:
+            password = request.POST['password1']
+        else:
+            return HttpResponse("Passwords don't match. TODO: better page.")
+        # Starting creation of user
+        user = M.User.objects.create_user(first_name = request.POST['firstname'],
+                                          last_name = request.POST['lastname'],
+                                          email = request.POST['email'],
+                                          telephone = request.POST['phone'],
+                                          username = request.POST['username'],
+                                          password = password)
+        user.save()
+        # Return the user to home page
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
