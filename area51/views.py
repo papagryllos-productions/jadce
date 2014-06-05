@@ -35,7 +35,7 @@ def adduser(request):
         if uf.is_valid():
             uf.save()
         # we just return data here, the redirection will be handled by JS
-        return HttpResponse('/TODO')
+        return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
@@ -51,6 +51,9 @@ def homelogin(request):
         if user is not None:
             login(request, user)
             # TODO: return to same page, but logged in
-            return HttpResponse('/u/' + username)
+            return HttpResponseRedirect('/u/' + username)
+        else:
+            # TODO: return to no such account page
+            return HttpResponse('Wrong username/password. TODO: better page')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')

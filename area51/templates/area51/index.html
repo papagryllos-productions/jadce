@@ -14,14 +14,15 @@
       <a class="navbar-brand" href="#">Area 51</a>
     </div>
     <div class="navbar-collapse collapse">
-      <form method="post" class="navbar-form navbar-right" role="form"> {% csrf_token %}
+      <form action="/api/login/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
+        {% csrf_token %}
         <div class="form-group">
             <input name="username" type="text" placeholder="Username" class="form-control">
         </div>
         <div class="form-group">
           <input name="password" type="password" placeholder="Password" class="form-control">
         </div>
-        <input type="button" id="log" class="btn btn-success" value="Log in">
+        <input type="submit" class="btn btn-success" value="Log in">
       </form>
     </div><!--/.navbar-collapse -->
   </div>
@@ -91,5 +92,4 @@
 <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/maps.js" %}"></script>
 <script type="text/javascript" src="{% static "js/dynamic.js" %}"></script>
-<script type="text/javascript" src="{% static "js/forms.js" %}"></script>
 {% endblock %}

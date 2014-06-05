@@ -19,7 +19,8 @@
     <div class="col-md-9 personal-info">
       <h3>Personal info</h3>
 
-      <form method="post" class="form-horizontal" role="form"> {% csrf_token %}
+      <form action="/api/adduser/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+        {% csrf_token %}
         <div class="form-group">
           <label class="col-lg-3 control-label">Name:</label>
           <div class="col-lg-8">
@@ -53,7 +54,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input type="button" id="send" class="btn btn-primary" value="Create">
+            <input type="submit" class="btn btn-primary" value="Create">
             <span></span>
             <input type="reset" id="clear" class="btn btn-danger" value="Clear">
           </div>
