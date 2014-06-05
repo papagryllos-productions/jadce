@@ -17,6 +17,18 @@
     <div class="navbar-collapse collapse">
       <form action="/api/logout/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
         {% csrf_token %}
+        <a align="right" href="/u/{{ user.username }}">
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-home fa-fw"></i> {{ user.username }}
+          </button>
+        </a>
+        {% if user.is_staff %}
+          <a align="right" href="admin">
+            <button type="button" class="btn btn-info">
+              <i class="fa fa-wrench fa-fw"></i> Admin
+            </button>
+          </a>
+        {% endif %}
         <input type="submit" class="btn btn-danger" value="Log out">
       </form>
     </div>
