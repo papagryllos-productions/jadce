@@ -13,6 +13,14 @@
       </button>
       <a class="navbar-brand" href="#">Area 51</a>
     </div>
+    {% if user.is_authenticated %}
+    <div class="navbar-collapse collapse">
+      <form action="/api/logout/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Log out">
+      </form>
+    </div>
+    {% else %}
     <div class="navbar-collapse collapse">
       <form action="/api/login/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
         {% csrf_token %}
@@ -24,10 +32,12 @@
         </div>
         <input type="submit" class="btn btn-success" value="Log in">
       </form>
-    </div><!--/.navbar-collapse -->
+    </div>
+    {% endif %}
   </div>
 </div>
 
+{% if user.is_authenticated == False %}
 <!-- Main jumbotron -->
 <div class="container">
   <div class="jumbotron jumb-color">
@@ -36,6 +46,7 @@
       <p><a class="btn btn-primary btn-lg" href="create_account" role="button">Create an account now &raquo;</a></p>
   </div>
 </div>
+{% endif %}
 
 <div class="container">
   <div class="row">

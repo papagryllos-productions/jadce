@@ -60,8 +60,7 @@ def homelogin(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            # TODO: return to same page, but logged in
-            return HttpResponseRedirect('/u/' + username)
+            return HttpResponseRedirect('/')
         else:
             # TODO: return to no such account page
             return HttpResponse('Wrong username/password. TODO: better page')
