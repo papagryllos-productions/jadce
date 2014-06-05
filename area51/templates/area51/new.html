@@ -1,0 +1,55 @@
+{% extends "area51/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+  <h1>New event -- What did you see?</h1>
+  <hr>
+  <div class="row">
+    <!-- left column -->
+    <div class="container">
+      <!-- TODO: add map with dimensions -->
+      <div class="col-md-6">
+        <div id="map-canvas" class="container"> <!-- map here --> </div>
+      </div>
+    </div>
+
+    <!-- right column -->
+    <div class="col-md-6">
+      <h3>Give us some info</h3>
+
+      <form action="/api/addevent/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Title:</label>
+          <div class="col-lg-8">
+            <input name="title" class="form-control" type="text" placeholder="Title">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Description:</label>
+          <div class="col-lg-8">
+            <input name="description" class="form-control" type="text" placeholder="TODO: we need to make this bigger">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Upload some pictures</label>
+          <div class="col-lg-8">
+            <input type="file" id="files" name="files[]" accept="image/*;capture=camera">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Done">
+            <span></span>
+            <input type="reset" id="clear" class="btn btn-danger" value="Clear">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr>
+</div>
+{% endblock %}

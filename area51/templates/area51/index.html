@@ -70,6 +70,13 @@
             <i class="fa fa-rss fa-fw"></i> RSS
           </button>
         </a>
+        {% if user.is_authenticated %}
+          <a align="right" href="new">
+            <button type="button" class="btn btn-success btn-xs pull-right">
+              <i class="fa fa-plus fa-fw"></i> New event
+            </button>
+          </a>
+        {% endif %}
       </p>
       {% if latest_events %}
         <ul class="list-group">

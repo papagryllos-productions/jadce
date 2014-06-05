@@ -25,6 +25,10 @@ def event(request, given_id):
 def create_account(request):
     return render(request, 'area51/create_account.html')
 
+# New event page
+def new(request):
+    return render(request, 'area51/new.html')
+
 # Auxiliary view for AJAX requests
 def data(request):
     count = len(M.Event.objects.all())
