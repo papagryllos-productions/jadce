@@ -62,7 +62,7 @@
       {% if latest_events %}
         <ul class="list-group">
           {% for event in latest_events %}
-            <li class="list-group-item"><p>{{ event.title }}</p></li>
+            <li class="list-group-item"><p><a href="/e/{{ event.id }}">{{ event.title }}</a></p></li>
           {% endfor %}
         </ul>
       {% else %}

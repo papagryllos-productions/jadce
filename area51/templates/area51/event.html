@@ -1,0 +1,47 @@
+{% extends "area51/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Area 51</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- TODO: add map with dimensions.. full screen -->
+  <div class="col-md-7">
+    <div id="map-canvas" class="container"> <!-- map here --> </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="/media/{{ event.photo }}" alt="Event photo" width="500" height="300"> <!-- TODO: fix sizes -->
+    </div>
+
+    <div class="col-md-6">
+      <!-- Info here -->
+      <h3>{{ event.title }} event information:</h3>
+      <hr>
+      <p><strong>Creator: </strong><a href="/u/{{ event.creator }}">{{ event.creator }}</a></p>
+      <p><strong>Date: </strong>{{ event.date_of_creation }}</p>
+      <p><strong>Description: </strong>{{ event.description }}</p>
+      <p><strong>Category: </strong>{{ event.category }}</p>
+      <p><strong>Dealt: </strong>{{ event.dealt }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

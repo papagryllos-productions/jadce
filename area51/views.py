@@ -21,6 +21,11 @@ def user(request, username):
     user = get_object_or_404(M.User, username=username)
     return render(request, 'area51/user.html', {'user': user})
 
+# single event page
+def event(request, given_id):
+    event = get_object_or_404(M.Event, pk=given_id)
+    return render(request, 'area51/event.html', {'event': event})
+
 # Auxiliary view for AJAX requests
 def data(request):
     count = len(M.Event.objects.all())
