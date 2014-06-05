@@ -1,5 +1,4 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext, loader
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
@@ -12,10 +11,6 @@ def home(request):
     context = {'latest_events': latest_events}
     return render(request, 'area51/index.html', context)
 
-# Create a new account page
-def create_account(request):
-    return render(request, 'area51/create_account.html')
-
 # user profile view
 def user(request, username):
     user = get_object_or_404(M.User, username=username)
@@ -25,6 +20,10 @@ def user(request, username):
 def event(request, given_id):
     event = get_object_or_404(M.Event, pk=given_id)
     return render(request, 'area51/event.html', {'event': event})
+
+# Create a new account page
+def create_account(request):
+    return render(request, 'area51/create_account.html')
 
 # Auxiliary view for AJAX requests
 def data(request):
