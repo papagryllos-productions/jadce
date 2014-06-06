@@ -44,11 +44,18 @@ def adduser(request):
             password = request.POST['password1']
         else:
             return HttpResponse("Passwords don't match. TODO: better page.")
+
+        # Phone is optional
+        if not request.POST['phone']:
+            phone = None
+        else:
+            phone = request.POST['phone']
+
         # Starting creation of user
         user = M.User.objects.create_user(first_name = request.POST['firstname'],
                                           last_name = request.POST['lastname'],
                                           email = request.POST['email'],
-                                          telephone = request.POST['phone'],
+                                          telephone = phone,
                                           username = request.POST['username'],
                                           password = password)
         user.save()
