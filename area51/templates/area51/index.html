@@ -3,105 +3,105 @@
 
 {% block content %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Area 51</a>
-    </div>
-    {% if user.is_authenticated %}
-    <div class="navbar-collapse collapse">
-      <form action="/api/logout/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
-        {% csrf_token %}
-        <a align="right" href="/u/{{ user.username }}">
-          <button type="button" class="btn btn-default">
-            <i class="fa fa-home fa-fw"></i> {{ user.username }}
-          </button>
-        </a>
-        {% if user.is_staff %}
-          <a align="right" href="admin">
-            <button type="button" class="btn btn-info">
-              <i class="fa fa-wrench fa-fw"></i> Admin
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
-          </a>
+            <a class="navbar-brand" href="#">Area 51</a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="navbar-collapse collapse">
+            <form action="/api/logout/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
+                {% csrf_token %}
+                <a align="right" href="/u/{{ user.username }}">
+                    <button type="button" class="btn btn-default">
+                        <i class="fa fa-home fa-fw"></i> {{ user.username }}
+                    </button>
+                </a>
+                {% if user.is_staff %}
+                <a align="right" href="admin">
+                    <button type="button" class="btn btn-info">
+                        <i class="fa fa-wrench fa-fw"></i> Admin
+                    </button>
+                </a>
+                {% endif %}
+                <input type="submit" class="btn btn-danger" value="Log out">
+            </form>
+        </div>
+        {% else %}
+        <div class="navbar-collapse collapse">
+            <form action="/api/login/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="username" type="text" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" placeholder="Password" class="form-control">
+                </div>
+                <input type="submit" class="btn btn-success" value="Log in">
+            </form>
+        </div>
         {% endif %}
-        <input type="submit" class="btn btn-danger" value="Log out">
-      </form>
     </div>
-    {% else %}
-    <div class="navbar-collapse collapse">
-      <form action="/api/login/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
-        {% csrf_token %}
-        <div class="form-group">
-            <input name="username" type="text" placeholder="Username" class="form-control">
-        </div>
-        <div class="form-group">
-          <input name="password" type="password" placeholder="Password" class="form-control">
-        </div>
-        <input type="submit" class="btn btn-success" value="Log in">
-      </form>
-    </div>
-    {% endif %}
-  </div>
 </div>
 
 {% if user.is_authenticated == False %}
 <!-- Main jumbotron -->
 <div class="container">
-  <div class="jumbotron jumb-color">
-      <h1>Hello, worlds</h1>
-      <p>The first alien reporting platform of the planet. Report Alien and UFOs sightings and see all the latest news.</p>
-      <p><a class="btn btn-primary btn-lg" href="create_account" role="button">Create an account now &raquo;</a></p>
-  </div>
+    <div class="jumbotron jumb-color">
+        <h1>Hello, worlds</h1>
+        <p>The first alien reporting platform of the planet. Report Alien and UFOs sightings and see all the latest news.</p>
+        <p><a class="btn btn-primary btn-lg" href="create_account" role="button">Create an account now &raquo;</a></p>
+    </div>
 </div>
 {% endif %}
 
 <div class="container">
-  <div class="row">
-    <!-- List of data in the first column and the map in the second -->
-    <div class="col-md-5">
-      <p align="left"><strong>Events: </strong>
-        <a align="right" href="feed">
-          <button type="button" class="btn btn-default btn-xs pull-right">
-            <i class="fa fa-rss fa-fw"></i> RSS
-          </button>
-        </a>
-        {% if user.is_authenticated %}
-          <a align="right" href="new">
-            <button type="button" class="btn btn-success btn-xs pull-right">
-              <i class="fa fa-plus fa-fw"></i> New event
-            </button>
-          </a>
-        {% endif %}
-      </p>
-      {% if latest_events %}
-        <ul class="list-group">
-          {% for event in latest_events %}
-            <li class="list-group-item"><p><a href="/e/{{ event.id }}">{{ event.title }}</a></p></li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <div class="alert alert-info"><p>No events yet.</p></div>
-      {% endif %}
+    <div class="row">
+        <!-- List of data in the first column and the map in the second -->
+        <div class="col-md-5">
+            <p align="left"><strong>Events: </strong>
+            <a align="right" href="feed">
+                <button type="button" class="btn btn-default btn-xs pull-right">
+                    <i class="fa fa-rss fa-fw"></i> RSS
+                </button>
+            </a>
+            {% if user.is_authenticated %}
+            <a align="right" href="new">
+                <button type="button" class="btn btn-success btn-xs pull-right">
+                    <i class="fa fa-plus fa-fw"></i> New event
+                </button>
+            </a>
+            {% endif %}
+            </p>
+            {% if latest_events %}
+            <ul class="list-group">
+                {% for event in latest_events %}
+                <li class="list-group-item"><p><a href="/e/{{ event.id }}">{{ event.title }}</a></p></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="alert alert-info"><p>No events yet.</p></div>
+            {% endif %}
+        </div>
+        <div id="map-main" class="col-md-7" > <!-- These need to add up to 12 -->
+            <h3 align="center">Latest Sightings</h2>
+            <div id="map-canvas" class="container"> <!-- map here --> </div>
+        </div>
     </div>
-    <div class="col-md-7"> <!-- These need to add up to 12 -->
-      <h3 align="center">Latest Sightings</h2>
-      <div id="map-canvas" class="container"> <!-- map here --> </div>
-    </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <div class="row">
-    <div class="col-md-4">
-      <h2>Sightings dealt with:</h2>
-      <p><div id="dynamic"><!-- AJAX data here --></div></p>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Sightings dealt with:</h2>
+            <p><div id="dynamic"><!-- AJAX data here --></div></p>
+        </div>
     </div>
-  </div>
-<hr>
+    <hr>
 </div>
 {% endblock %}

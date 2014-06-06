@@ -5,7 +5,7 @@ html {
 
 body {
     margin-top:20px;
-    padding-top:50px;
+    padding-top:70px;
     padding-bottom: 10px;
     height:100%;
     margin:0;   /* to get rid of scroll bar */
@@ -28,12 +28,20 @@ body {
     background:#BAC6C4;
 }
 
-#map-canvas {
-    /* TODO: percetages for better sizes? */
-    width:650px;
+#map-main {
+    height: 500px;
+}
+
+#map-event {
+    display:block;
+    width: 100%;
     height:500px;
 }
 
+#map-canvas {
+    width: 100%;
+    height:90%;
+}
 
 .jumb-color {
     background:#BAC6C4;

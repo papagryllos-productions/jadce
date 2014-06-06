@@ -17,8 +17,7 @@
 </div>
 
 <div class="container">
-  <!-- TODO: add map with dimensions.. full screen -->
-  <div class="col-md-7">
+  <div id="map-event" class="col-md-7">
     <div id="map-canvas" class="container"> <!-- map here --> </div>
   </div>
 </div>
@@ -27,9 +26,6 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <img src="/media/{{ event.photo }}" alt="Event photo" width="500" height="300"> <!-- TODO: fix sizes -->
-    </div>
 
     <div class="col-md-6">
       <!-- Info here -->
@@ -41,6 +37,13 @@
       <p><strong>Category: </strong>{{ event.category }}</p>
       <p><strong>Dealt: </strong>{{ event.dealt }}</p>
     </div>
+
+    {% if event.photo %}
+        <div class="col-md-6">
+        <img src="/media/{{ event.photo }}" alt="Event photo" width="500" height="300"> <!-- TODO: fix sizes -->
+        </div>
+    {% endif %}
+
   </div>
 <hr>
 </div>
