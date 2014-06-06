@@ -39,8 +39,8 @@
     </div>
 
     {% if event.photo %}
-        <div class="col-md-6">
-        <img src="/media/{{ event.photo }}" alt="Event photo" width="500" height="300"> <!-- TODO: fix sizes -->
+        <div id="photo_cont" class="col-md-6">
+        <img src="/media/{{ event.photo }}" alt="Event photo" class="no_stretching">
         </div>
     {% endif %}
 
