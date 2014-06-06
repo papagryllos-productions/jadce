@@ -1,16 +1,40 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
+html {
+    height:100%;
+}
+
 body {
-  margin-top: 20px;
-  padding-top: 50px;
-  padding-bottom: 20px;
+    margin-top:20px;
+    padding-top:50px;
+    padding-bottom: 10px;
+    height:100%;
+    margin:0;   /* to get rid of scroll bar */
+}
+
+.wrapper {
+    min-height:100%;    /* to keep .footer on bottom */
+    position:relative;  /* must be relative or .footer will cover content */
+}
+
+.content {
+    padding-bottom:2em; /* height of the footer */
+}
+
+.footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:1.5em;
+    background:#BAC6C4;
 }
 
 #map-canvas {
-  /* TODO: percetages for better sizes? */
-  width: 650px;
-  height: 500px;
+    /* TODO: percetages for better sizes? */
+    width:650px;
+    height:500px;
 }
 
+
 .jumb-color {
-  background: #BAC6C4;
+    background:#BAC6C4;
 }
