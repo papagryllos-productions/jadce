@@ -15,10 +15,23 @@
     <!-- right column -->
     <div class="col-md-9 personal-info">
       <h3>Personal info</h3>
+      <hr>
 
-      <p><strong>Name: </strong>{{ user.name }}</p>
+      <p><strong>First Name: </strong>{{ user.first_name }}</p>
+      <p><strong>Last Name: </strong>{{ user.last_name }}</p>
       <p><strong>Email: </strong>{{ user.email }}</p>
-      <p><strong>Phone: </strong>{{ user.phone }}</p>
+      <p><strong>Phone: </strong>{{ user.telephone }}</p>
+      {% if user.is_superuser %}
+      <p><strong>Admin? </strong><i class="fa fa-check"></i></p>
+      {% else %}
+      <p><strong>Admin? </strong><i class="fa fa-times"></i></p>
+      {% endif %}
+      {% if user.is_staff %}
+      <p><strong>Staff? </strong><i class="fa fa-check"></i></p>
+      {% else %}
+      <p><strong>Staff? </strong><i class="fa fa-times"></i></p>
+      {% endif %}
+      <p><strong>Date joined: </strong>{{ user.date_joined }}</p>
     </div>
   </div>
   <hr>
