@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from geoposition.fields import GeopositionField
 from django.contrib.auth.models import AbstractUser
 
 ALIENCATEGORIES = (
@@ -7,6 +8,10 @@ ALIENCATEGORIES = (
     (1, 'Alien in the Flesh'),
     (2, 'Strange Lights'),
     (3, 'Glitch in the Matrix'),
+    (4, 'Gojira Invasion'),
+    (5, 'Vortex to Unknown'),
+    (6, 'Messiah Returns'),
+    (7, 'Man stuck in Astral Projection'),
 )
 
 class User(AbstractUser):
@@ -17,7 +22,7 @@ class Event(models.Model):
         return self.title
     def get_absolute_url(self):
         return "/event/%i/" % self.id
-    # TODO: geolocation field
+    position = GeopositionField()
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(User)
     description = models.TextField()
