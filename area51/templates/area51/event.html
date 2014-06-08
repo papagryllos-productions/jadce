@@ -34,6 +34,7 @@
       <p><strong>Creator: </strong><a href="/u/{{ event.creator }}">{{ event.creator }}</a></p>
       <p><strong>Date: </strong>{{ event.date_of_creation }}</p>
       <p><strong>Description: </strong>{{ event.description }}</p>
+      <p id="position">{{ event.position }}</p>
       <p><strong>Category: </strong>{{ event.get_category_display }}</p>
       {% if event.dealt %}
       <p><strong>Dealt? </strong><i class="fa fa-check"></i></p>
@@ -52,4 +53,5 @@
 <hr>
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAycmK-3YhwtVLVR8lAQ3sD3zGFy1gfSrk&sensor=true&output=embed"></script>
+<script type="text/javascript" src="{% static "js/map-events.js" %}"></script>
 {% endblock %}
