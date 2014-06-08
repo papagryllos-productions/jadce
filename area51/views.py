@@ -4,6 +4,7 @@ from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
 from django import forms
+from geoposition.forms import GeopositionField
 
 import area51.models as M
 
@@ -31,9 +32,9 @@ def create_account(request):
 class EventForm(forms.Form):
     title = forms.CharField(max_length=100, required=True)
     description = forms.CharField(widget = forms.Textarea, required=False)
+    position = GeopositionField()
     category = forms.ChoiceField(choices=M.ALIENCATEGORIES)
     photo = forms.ImageField(required=False)
-    # TODO map & coordinates
 
 # New event page
 def new(request):
@@ -95,11 +96,17 @@ def addevent(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
+        if not request.FILES['photo']:
+            ph = None
+        else:
+            ph = request.FILES['photo']
+
         ev = M.Event.objects.create(title = request.POST['title'],
                                     creator = request.user,
                                     description = request.POST['description'],
                                     category = request.POST['category'],
-                                    photo = request.FILES['photo'])
+                                    photo = ph)
+        ev.position = request.POST['position_0'] + ',' + request.POST['position_1']
         ev.save()
         # Return the user to the home page
         return HttpResponseRedirect('/')

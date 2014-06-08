@@ -31,6 +31,10 @@ img.no_stretching {
     width:100%;
 }
 
+#submit_buttons {
+    padding-top:55px;
+}
+
 /*
  * This is probably the worst hack ever. We assign some of bootstrap's css
  * to the special ids of the django form since they are hard coded and wrapping
