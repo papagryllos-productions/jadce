@@ -3,6 +3,8 @@ from django.core.context_processors import csrf
 from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
+from django import forms
+
 import area51.models as M
 
 # The main page
@@ -25,9 +27,25 @@ def event(request, given_id):
 def create_account(request):
     return render(request, 'area51/create_account.html')
 
+# a form for the new-event page
+class EventForm(forms.Form):
+    title = forms.CharField(max_length=100, required=True)
+    description = forms.CharField(widget = forms.Textarea, required=False)
+    category = forms.ChoiceField(choices=M.ALIENCATEGORIES)
+    photo = forms.ImageField(required=False)
+    # TODO map & coordinates
+
 # New event page
 def new(request):
-    return render(request, 'area51/new.html')
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            HttpResponseRedirect('/thanks/')
+        else:
+            return HttpResponse("Error. TODO: We need a 404")
+    else:
+        form = EventForm()
+    return render(request, 'area51/new.html', {'form': form})
 
 # Auxiliary view for AJAX requests
 def data(request):
@@ -68,6 +86,22 @@ def adduser(request):
                                           password = password)
         user.save()
         # Return the user to home page
+        return HttpResponseRedirect('/')
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
+
+# POST view for adding a new event
+def addevent(request):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "POST":
+        ev = M.Event.objects.create(title = request.POST['title'],
+                                    creator = request.user,
+                                    description = request.POST['description'],
+                                    category = request.POST['category'],
+                                    photo = request.FILES['photo'])
+        ev.save()
+        # Return the user to the home page
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')

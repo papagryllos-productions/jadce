@@ -5,51 +5,64 @@
 <div class="container">
   <h1>New event -- What did you see?</h1>
   <hr>
-  <div class="row">
-    <!-- left column -->
-    <div class="container">
-      <!-- TODO: add map with dimensions -->
-      <div class="col-md-6">
-        <div id="map-canvas" class="container"> <!-- map here --> </div>
+
+  <form action="/api/addevent/" method="post" accept-charset="utf-8" class="form-horizontal" role="form"
+    {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}> {% csrf_token %}
+    <div class="row">
+      <div class="form-group">
+        {{ form.title.errors }}
+        <label class="col-lg-3 control-label">Title:</label>
+        <div class="col-lg-8">
+          <div class="fieldWrapper">
+            {{ form.title }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.description.errors }}
+        <label class="col-lg-3 control-label">Description:</label>
+        <div class="col-lg-8">
+          {{ form.description }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.category.errors }}
+        <label class="col-lg-3 control-label">Category:</label>
+        <div class="col-lg-8">
+          {{ form.category }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.photo.errors }}
+        <label class="col-lg-3 control-label">Upload some pictures:</label>
+        <div class="col-lg-8">
+          <!-- We need something like this for the camera-phone:
+          <input type="file" id="files" name="files[]" accept="image/*;capture=camera"> -->
+          {{ form.photo }}
+        </div>
       </div>
     </div>
 
-    <!-- right column -->
-    <div class="col-md-6">
-      <h3>Give us some info</h3>
+    <hr>
+    <h2>We located you here: (feel free to change it)</h2>
 
-      <form action="/api/addevent/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
-        {% csrf_token %}
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Title:</label>
-          <div class="col-lg-8">
-            <input name="title" class="form-control" type="text" placeholder="Title">
-          </div>
+    <div class="row">
+      <div class="container">
+        <div id="map-event" class="col-md-6">
+          <div id="map-canvas" class="container"> <!-- map here --> </div>
         </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Description:</label>
-          <div class="col-lg-8">
-            <input name="description" class="form-control" type="text" placeholder="TODO: we need to make this bigger">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Upload some pictures</label>
-          <div class="col-lg-8">
-            <input type="file" id="files" name="files[]" accept="image/*;capture=camera">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-md-8">
-            <input type="submit" class="btn btn-primary" value="Done">
-            <span></span>
-            <input type="reset" id="clear" class="btn btn-danger" value="Clear">
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label class="col-md-2 col-md-offset-3 control-label"></label>
+        <input type="submit" class="btn btn-primary btn-lg" value="Done">
+        <input type="reset" id="clear" class="btn btn-danger btn-lg" value="Cancel">
+      </div>
+    </div>
+  </form>
+
   <hr>
 </div>
 {% endblock %}
