@@ -96,10 +96,10 @@ def addevent(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        if not request.FILES['photo']:
-            ph = None
-        else:
+        if request.FILES:
             ph = request.FILES['photo']
+        else:
+            ph = None
 
         ev = M.Event.objects.create(title = request.POST['title'],
                                     creator = request.user,
