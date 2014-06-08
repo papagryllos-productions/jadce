@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
@@ -43,7 +43,7 @@ def new(request):
         if form.is_valid():
             HttpResponseRedirect('/thanks/')
         else:
-            return HttpResponse("Error. TODO: We need a 404")
+            raise Http404
     else:
         form = EventForm()
     return render(request, 'area51/new.html', {'form': form})
@@ -70,7 +70,7 @@ def adduser(request):
         if request.POST['password1'] == request.POST['password2']:
             password = request.POST['password1']
         else:
-            return HttpResponse("Passwords don't match. TODO: better page.")
+            raise Http404
 
         # Phone is optional
         if not request.POST['phone']:
@@ -126,8 +126,7 @@ def homelogin(request):
             login(request, user)
             return HttpResponseRedirect('/')
         else:
-            # TODO: return to no such account page
-            return HttpResponse('Wrong username/password. TODO: better page')
+            raise Http404
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
