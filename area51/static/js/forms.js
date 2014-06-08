@@ -4,6 +4,16 @@ $(document).ready(function() {
     $(this).closest("form").find("input[type=text], textarea").val("");
   });
 
+  // this is to prevent sending empty forms
+  $("#submitting").click(function() {
+    if ($("#username").val() == '') {
+      $(".error").hide();
+      $("#username").after('<span class="error">You need to give at least a username.</span>');
+      return false;
+    }
+    return true;
+  });
+
   // For checking validity of the two password forms & the email
   $("#password2").keyup(matching_passwords);
   $("#email").keyup(validate_email);
