@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
+from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
 import area51.models as M
@@ -7,7 +8,6 @@ import area51.models as M
 # The main page
 def home(request):
     latest_events = M.Event.objects.all().order_by('-date_of_creation')[:20]
-    # these are the available variables inside the template:
     context = {'latest_events': latest_events}
     return render(request, 'area51/index.html', context)
 
@@ -33,6 +33,14 @@ def new(request):
 def data(request):
     count = len(M.Event.objects.all())
     return HttpResponse(count)
+
+def event_list(request):
+    if request.method == "GET":
+        json_serializer = serializers.get_serializer("json")()
+        events = json_serializer.serialize(M.Event.objects.all(), ensure_ascii=False)
+        return HttpResponse(events)
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
 
 # POST view for creating a user
 def adduser(request):
