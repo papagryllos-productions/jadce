@@ -2,52 +2,6 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Area 51</a>
-        </div>
-        {% if user.is_authenticated %}
-        <div class="navbar-collapse collapse">
-            <form action="/api/logout/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
-                {% csrf_token %}
-                <a align="right" href="/u/{{ user.username }}">
-                    <button type="button" class="btn btn-default">
-                        <i class="fa fa-home fa-fw"></i> {{ user.username }}
-                    </button>
-                </a>
-                {% if user.is_staff %}
-                <a align="right" href="admin">
-                    <button type="button" class="btn btn-info">
-                        <i class="fa fa-wrench fa-fw"></i> Admin
-                    </button>
-                </a>
-                {% endif %}
-                <input type="submit" class="btn btn-danger" value="Log out">
-            </form>
-        </div>
-        {% else %}
-        <div class="navbar-collapse collapse">
-            <form action="/api/login/" method="post" accept-charset="utf-8" class="navbar-form navbar-right" role="form">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input name="username" type="text" placeholder="Username" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input name="password" type="password" placeholder="Password" class="form-control">
-                </div>
-                <input type="submit" class="btn btn-success" value="Log in">
-            </form>
-        </div>
-        {% endif %}
-    </div>
-</div>
 
 {% if user.is_authenticated == False %}
 <!-- Main jumbotron -->
