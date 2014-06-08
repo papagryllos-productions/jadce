@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="static/favicon.ico">
+<link rel="shortcut icon" href="{% static "favicon.ico" %}">
 
 <title>Area 51 - Report your aliens here</title>
 
@@ -54,7 +54,7 @@
                             </button>
                         </a>
                         {% if user.is_staff %}
-                        <a align="right" href="admin">
+                        <a align="right" href="/admin">
                             <button type="button" class="btn btn-info">
                                 <i class="fa fa-wrench fa-fw"></i> Admin
                             </button>
