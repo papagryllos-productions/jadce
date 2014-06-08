@@ -33,9 +33,12 @@
         </div>
       </div>
       <div class="form-group">
+        {{ form.photo.errors }}
         <label class="col-lg-3 control-label">Upload some pictures:</label>
         <div class="col-lg-8">
-          <input type="file" id="files" name="files[]" accept="image/*;capture=camera">
+          <!-- We need something like this for the camera-phone:
+          <input type="file" id="files" name="files[]" accept="image/*;capture=camera"> -->
+          {{ form.photo }}
         </div>
       </div>
     </div>

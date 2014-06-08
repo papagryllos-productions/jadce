@@ -32,12 +32,13 @@ class EventForm(forms.Form):
     title = forms.CharField(max_length=100, required=True)
     description = forms.CharField(widget = forms.Textarea, required=False)
     category = forms.ChoiceField(choices=M.ALIENCATEGORIES)
-    # need to pass through: dealt, creator, images, coordinates...
+    photo = forms.ImageField(required=False)
+    # TODO map & coordinates
 
 # New event page
 def new(request):
     if request.method == "POST":
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             HttpResponseRedirect('/thanks/')
         else:
@@ -77,6 +78,22 @@ def adduser(request):
                                           password = password)
         user.save()
         # Return the user to home page
+        return HttpResponseRedirect('/')
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
+
+# POST view for adding a new event
+def addevent(request):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "POST":
+        ev = M.Event.objects.create(title = request.POST['title'],
+                                    creator = request.user,
+                                    description = request.POST['description'],
+                                    category = request.POST['category'],
+                                    photo = request.FILES['photo'])
+        ev.save()
+        # Return the user to the home page
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
