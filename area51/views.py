@@ -50,8 +50,14 @@ def new(request):
 
 # Auxiliary view for AJAX requests
 def data(request):
-    count = len(M.Event.objects.all())
-    return HttpResponse(count)
+    all_events   = M.Event.objects.all()
+    count_all    = len(all_events)
+    dealt_events = len(M.Event.objects.filter(dealt=True))
+    first        = all_events[0]
+    response  = "<p><strong>Events so far:</strong> " + str(count_all) + "</p>"
+    response += "<p><strong>Checked events:</strong> " + str(dealt_events) + "</p>"
+    response += "<p><strong>Latest event:</strong> " + str(first) + "</p>"
+    return HttpResponse(response)
 
 # API list of events
 def event_list(request):
