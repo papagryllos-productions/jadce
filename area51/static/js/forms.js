@@ -8,10 +8,19 @@ $(document).ready(function() {
   $("#submitting").click(function() {
     if ($("#username").val() == '') {
       $(".error").hide();
-      $("#username").after('<span class="error">You need to give at least a username.</span>');
+      $("#username").after('<span class="error"><i class="fa fa-exclamation"></i> You need to give at least a username.</span>');
       return false;
+    } else if ($("#password1").val() == '') {
+      $(".error").hide();
+      $("#password1").after('<span class="error"><i class="fa fa-exclamation"></i> You need a password in order to log-in.</span>');
+      return false;
+    } else if ($("#password2").val() == '') {
+      $(".error").hide();
+      $("#password2").after('<span class="error"><i class="fa fa-exclamation"></i> Please confirm your password.</span>');
+      return false;
+    } else {
+      return true;
     }
-    return true;
   });
 
   // For checking validity of the two password forms & the email
