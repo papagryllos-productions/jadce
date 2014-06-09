@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  <h1>{{ user.username }}</h1>
+  <h1>{{ us.username }}</h1>
   <hr>
   <div class="row">
     <!-- left column -->
@@ -17,21 +17,21 @@
       <h3>Personal info</h3>
       <hr>
 
-      <p><strong>First Name: </strong>{{ user.first_name }}</p>
-      <p><strong>Last Name: </strong>{{ user.last_name }}</p>
-      <p><strong>Email: </strong>{{ user.email }}</p>
-      <p><strong>Phone: </strong>{{ user.telephone }}</p>
-      {% if user.is_superuser %}
+      <p><strong>First Name: </strong>{{ us.first_name }}</p>
+      <p><strong>Last Name: </strong>{{ us.last_name }}</p>
+      <p><strong>Email: </strong>{{ us.email }}</p>
+      <p><strong>Phone: </strong>{{ us.telephone }}</p>
+      {% if us.is_superuser %}
       <p><strong>Admin? </strong><i class="fa fa-check"></i></p>
       {% else %}
       <p><strong>Admin? </strong><i class="fa fa-times"></i></p>
       {% endif %}
-      {% if user.is_staff %}
+      {% if us.is_staff %}
       <p><strong>Staff? </strong><i class="fa fa-check"></i></p>
       {% else %}
       <p><strong>Staff? </strong><i class="fa fa-times"></i></p>
       {% endif %}
-      <p><strong>Date joined: </strong>{{ user.date_joined }}</p>
+      <p><strong>Date joined: </strong>{{ us.date_joined }}</p>
     </div>
   </div>
   <hr>
