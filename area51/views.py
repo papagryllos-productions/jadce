@@ -53,13 +53,22 @@ def data(request):
     count = len(M.Event.objects.all())
     return HttpResponse(count)
 
+# API list of events
 def event_list(request):
     if request.method == "GET":
         json_serializer = serializers.get_serializer("json")()
         events = json_serializer.serialize(M.Event.objects.all(), ensure_ascii=False)
         return HttpResponse(events)
     else:
-        return HttpResponse('This url is to be used for POST req ONLY!!!')
+        return HttpResponse('This url is to be used for GET req ONLY!!!')
+
+# API list of usernames
+def user_list(request):
+    if request.method == "GET":
+        usernames = [o.username for o in M.User.objects.all()]
+        return HttpResponse(",".join(usernames))
+    else:
+        return HttpResponse('This url is to be used for GET req ONLY!!!')
 
 # POST view for creating a user
 def adduser(request):

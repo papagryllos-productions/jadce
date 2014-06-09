@@ -17,6 +17,7 @@ $(document).ready(function() {
   // For checking validity of the two password forms & the email
   $("#password2").keyup(matching_passwords);
   $("#email").keyup(validate_email);
+  $("#username").keyup(username_availability);
 });
 
 function matching_passwords() {
@@ -54,4 +55,27 @@ function validate_email() {
     $("#email").after('<span class="error"><i class="fa fa-times"></i> Please enter a valid email.</span>');
     return false;
   }
+}
+
+function username_availability() {
+  $(".error").hide();
+  $.get('/api/user_list', function(data) {
+    var usernames = data.split(',');
+    if (containsObject($("#username").val(), usernames)) {
+      $("#username").after('<span class="error"><i class="fa fa-times"></i> Username already exists.</span>');
+      return false;
+    } else {
+      return true;
+    }
+  });
+}
+
+function containsObject(obj, list) {
+  var i;
+  for (i = 0; i < list.length; i++) {
+    if (list[i] === obj) {
+      return true;
+    }
+  }
+  return false;
 }
