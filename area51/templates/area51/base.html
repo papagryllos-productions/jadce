@@ -50,12 +50,17 @@
                         {% csrf_token %}
                         <a align="right" href="/u/{{ user.username }}">
                             <button type="button" class="btn btn-default">
-                                <i class="fa fa-home fa-fw"></i> {{ user.username }}
+                                <i class="fa fa-user fa-fw"></i> {{ user.username }}
+                            </button>
+                        </a>
+                        <a align="right" href="/list/">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa fa-eye fa-fw"></i> Events
                             </button>
                         </a>
                         {% if user.is_staff %}
                         <a align="right" href="/admin">
-                            <button type="button" class="btn btn-info">
+                            <button type="button" class="btn btn-warning">
                                 <i class="fa fa-wrench fa-fw"></i> Admin
                             </button>
                         </a>

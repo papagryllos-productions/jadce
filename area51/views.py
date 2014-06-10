@@ -51,6 +51,12 @@ def new(request):
         form = EventForm()
     return render(request, 'area51/new.html', {'form': form})
 
+# Event list view. Either displays user's events, or all o' them if he's a moderator
+def list_page(request):
+    user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
+    context = {'user_latest': user_latest}
+    return render(request, 'area51/list.html', context)
+
 # Auxiliary view for AJAX requests
 def data(request):
     all_events   = M.Event.objects.all()

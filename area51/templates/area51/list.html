@@ -1,0 +1,31 @@
+{% extends "area51/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h3>Your events</h3>
+        <hr>
+    </div>
+
+    <div class="row">
+        {% if user_latest %}
+        <ul class="list-group">
+            {% for event in user_latest %}
+            <li class="list-group-item">
+                {% if event.dealt %}
+                <span class="badge"><i class="fa fa-check"></i></span>
+                {% else %}
+                <span class="badge"><i class="fa fa-times"></i></span>
+                {% endif %}
+                <a href="/e/{{ event.id }}"> {{ event.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+        {% endif %}
+    </div>
+    <hr>
+</div>
+{% endblock %}
