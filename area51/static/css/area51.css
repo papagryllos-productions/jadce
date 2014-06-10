@@ -35,6 +35,10 @@ img.no_stretching {
     padding-top:55px;
 }
 
+#just-bigger-text {
+  font-size:180%;
+}
+
 /*
  * This is probably the worst hack ever. We assign some of bootstrap's css
  * to the special ids of the django form since they are hard coded and wrapping

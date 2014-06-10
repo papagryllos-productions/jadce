@@ -106,6 +106,27 @@ def adduser(request):
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
+# POST view for editting a users profile
+def edituser(request):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "POST":
+        # Finding the object in the DB
+        us = M.User.objects.filter(username=request.user)
+        if request.POST['firstname']:
+            us.update(first_name=request.POST['firstname'])
+        if request.POST['lastname']:
+            us.update(last_name=request.POST['lastname'])
+        if request.POST['email']:
+            us.update(email=request.POST['email'])
+        if request.POST['phone']:
+            us.update(telephone=request.POST['phone'])
+
+        # Return the user to his updated profile
+        return HttpResponseRedirect('/u/' + str(request.user))
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
+
 # POST view for adding a new event
 def addevent(request):
     c = {}
