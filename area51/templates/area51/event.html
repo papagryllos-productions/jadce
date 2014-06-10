@@ -29,10 +29,45 @@
       {% endif %}
     </div>
 
-    {% if event.photo %}
-        <div id="photo_cont" class="col-md-6">
-        <img src="/media/{{ event.photo }}" alt="Event photo" class="no_stretching">
+    <!-- TODO -->
+    {% if event.photo1 or event.photo2 or event.photo3 or event.photo4 %}
+      <div class="col-md-6">
+        <h3>Available photos:</h3>
+        <hr>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            {% if event.photo1 %}
+              <div class="item active">
+                <img src="/media/{{ event.photo1 }}" alt="Event photo 1" class="no_stretching">
+              </div>
+            {% endif %}
+            {% if event.photo1 %}
+              <div class="item">
+                <img src="/media/{{ event.photo2 }}" alt="Event photo 2" class="no_stretching">
+              </div>
+            {% endif %}
+            {% if event.photo1 %}
+              <div class="item">
+                <img src="/media/{{ event.photo3 }}" alt="Event photo 3" class="no_stretching">
+              </div>
+            {% endif %}
+            {% if event.photo1 %}
+              <div class="item">
+                <img src="/media/{{ event.photo4 }}" alt="Event photo 4" class="no_stretching">
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+          </a>
         </div>
+      </div>
     {% endif %}
 
   </div>

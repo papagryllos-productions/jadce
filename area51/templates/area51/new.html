@@ -33,11 +33,14 @@
         </div>
       </div>
       <div class="form-group">
-        {{ form.photo.errors }}
-        <label class="col-lg-3 control-label">Upload some pictures:</label>
+        {{ form.photo1.errors }} {{ form.photo2.errors }} {{ form.photo3.errors }} {{ form.photo4.errors }}
+        <label class="col-lg-3 control-label">Upload up to 4 pictures:</label>
         <div class="col-lg-8">
           <!-- The required attributes are gonna added later dynamically -->
-          {{ form.photo }}
+          {{ form.photo1 }}
+          {{ form.photo2 }}
+          {{ form.photo3 }}
+          {{ form.photo4 }}
         </div>
       </div>
     </div>

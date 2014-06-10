@@ -29,7 +29,10 @@ class Event(models.Model):
     category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
     dealt = models.BooleanField(default=False)
     date_of_creation = models.DateField(auto_now=True)
-    photo = models.ImageField(upload_to="aliens", null=True, blank=True)
+    photo1 = models.ImageField(upload_to="aliens", null=True, blank=True)
+    photo2 = models.ImageField(upload_to="aliens", null=True, blank=True)
+    photo3 = models.ImageField(upload_to="aliens", null=True, blank=True)
+    photo4 = models.ImageField(upload_to="aliens", null=True, blank=True)
 
 class Contribution(models.Model):
     def __str__(self):

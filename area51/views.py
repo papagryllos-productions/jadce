@@ -34,7 +34,10 @@ class EventForm(forms.Form):
     description = forms.CharField(widget = forms.Textarea, required=False)
     position = GeopositionField()
     category = forms.ChoiceField(choices=M.ALIENCATEGORIES)
-    photo = forms.ImageField(required=False)
+    photo1 = forms.ImageField(required=False)
+    photo2 = forms.ImageField(required=False)
+    photo3 = forms.ImageField(required=False)
+    photo4 = forms.ImageField(required=False)
 
 # New event page
 def new(request):
@@ -127,15 +130,22 @@ def addevent(request):
     c.update(csrf(request))
     if request.method == "POST":
         if request.FILES:
-            ph = request.FILES['photo']
+            p1 = request.FILES['photo1']
+            p2 = request.FILES['photo2']
+            p3 = request.FILES['photo3']
+            p4 = request.FILES['photo4']
         else:
-            ph = None
+            p1 = p2 = p3 = p4 = None
 
         ev = M.Event.objects.create(title = request.POST['title'],
                                     creator = request.user,
                                     description = request.POST['description'],
                                     category = request.POST['category'],
-                                    photo = ph)
+                                    photo1 = p1,
+                                    photo2 = p2,
+                                    photo3 = p3,
+                                    photo4 = p4)
+
         ev.position = request.POST['position_0'] + ',' + request.POST['position_1']
         ev.save()
         # Return the user to the home page
