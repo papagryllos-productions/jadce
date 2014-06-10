@@ -130,13 +130,16 @@ def addevent(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
+        p1 = p2 = p3 = p4 = None
         if request.FILES:
-            p1 = request.FILES['photo1']
-            p2 = request.FILES['photo2']
-            p3 = request.FILES['photo3']
-            p4 = request.FILES['photo4']
-        else:
-            p1 = p2 = p3 = p4 = None
+            if 'photo1' in request.FILES:
+                p1 = request.FILES['photo1']
+            if 'photo2' in request.FILES:
+                p2 = request.FILES['photo2']
+            if 'photo3' in request.FILES:
+                p3 = request.FILES['photo3']
+            if 'photo4' in request.FILES:
+                p4 = request.FILES['photo4']
 
         ev = M.Event.objects.create(title = request.POST['title'],
                                     creator = request.user,
