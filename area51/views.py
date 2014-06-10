@@ -17,7 +17,7 @@ def home(request):
 # user profile view
 def user(request, username):
     us = get_object_or_404(M.User, username=username)
-    return render(request, 'area51/user.html', {'us': user})
+    return render(request, 'area51/user.html', {'us': us})
 
 # single event page
 def event(request, given_id):
