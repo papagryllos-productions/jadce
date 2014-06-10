@@ -53,8 +53,14 @@ def new(request):
 
 # Event list view. Either displays user's events, or all o' them if he's a moderator
 def list_page(request):
-    user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
-    context = {'user_latest': user_latest}
+    if request.user.is_superuser:
+        opened = M.Event.objects.all().filter(dealt=False).order_by('-date_of_creation')
+        # This is what we need to get all the info for the completed events:
+        contributions = M.Contribution.objects.all()
+        context = {"opened": opened, "contributions": contributions}
+    else:
+        user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
+        context = {"user_latest": user_latest}
     return render(request, 'area51/list.html', context)
 
 # Auxiliary view for AJAX requests
