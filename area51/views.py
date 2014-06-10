@@ -108,7 +108,8 @@ def edituser(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        # Finding the object in the DB
+        # Finding the object in the DB. We get the user from the request for security reasons.
+        # This way in case of malicious request the only edit could happen on the logged it user.
         us = M.User.objects.filter(username=request.user)
         if request.POST['firstname']:
             us.update(first_name=request.POST['firstname'])
@@ -158,7 +159,6 @@ def homelogin(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        # return HttpResponse(request.POST['username'])
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
