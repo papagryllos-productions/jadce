@@ -87,17 +87,11 @@ def adduser(request):
         else:
             raise Http404
 
-        # Phone is optional
-        if not request.POST['phone']:
-            phone = None
-        else:
-            phone = request.POST['phone']
-
         # Starting creation of user
         user = M.User.objects.create_user(first_name = request.POST['firstname'],
                                           last_name = request.POST['lastname'],
                                           email = request.POST['email'],
-                                          telephone = phone,
+                                          telephone = request.POST['phone'],
                                           username = request.POST['username'],
                                           password = password)
         user.save()

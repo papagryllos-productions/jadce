@@ -15,7 +15,7 @@ ALIENCATEGORIES = (
 )
 
 class User(AbstractUser):
-    telephone = models.IntegerField(max_length=10, null=True)
+    telephone = models.CharField(max_length=13, null=True)
 
 class Event(models.Model):
     def __str__(self):
