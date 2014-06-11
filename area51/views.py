@@ -65,13 +65,36 @@ def list_page(request):
 
 # Auxiliary view for AJAX requests
 def data(request):
+    # Basic data
     all_events   = M.Event.objects.all()
     count_all    = len(all_events)
     dealt_events = len(M.Event.objects.filter(dealt=True))
+    open_events  = count_all - dealt_events
     first        = all_events[0]
+
+    # Time-average until completion/checking
+    sumd = 0
+    first_time = True
+    all_contribs = M.Contribution.objects.all()
+    for co in all_contribs:
+        # substructing datetime objects yields a timedelta object
+        td = co.date_of_contrib - co.event_id.date_of_creation
+        if first_time:
+            # The first time we just create the timedelta object
+            sumd = td
+            first_time = False
+        else:
+            # All the subsequent times we just adding. Timedeltas can be added.
+            sumd += td
+    # They can also be divided by integers, and be pretty printed with srt()
+    average = sumd / dealt_events
+
+    # We return them as html since they get printed immediately
     response  = "<p><strong>Events so far:</strong> " + str(count_all) + "</p>"
     response += "<p><strong>Checked events:</strong> " + str(dealt_events) + "</p>"
+    response += "<p><strong>Open events:</strong> " + str(open_events) + "</p>"
     response += "<p><strong>Latest event:</strong> " + str(first) + "</p>"
+    response += "<p><strong>Average completion time:</strong> " + str(average) + "</p>"
     return HttpResponse(response)
 
 # API list of events
