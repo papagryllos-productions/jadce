@@ -2,6 +2,37 @@
 {% load staticfiles %}
 
 {% block content %}
+{% if user.is_authenticated %}
+{% if user.is_superuser %}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Mark Event Checked</h4>
+          </div>
+
+          <form action="/api/checkevent/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="col-lg-3 control-label">You may leave a comment:</label>
+                <div class="col-lg-8">
+                  <input name="comment" class="form-control" type="text" value="">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="submit" class="btn btn-primary" value="Checked">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endif %}
+{% endif %}
+
 <div class="container">
     {% if user.is_authenticated %}
         {% if user.is_superuser %}
@@ -15,11 +46,16 @@
                     {% if opened %}
                         <ul class="list-group">
                             {% for event in opened %}
+                            <div class="input-group">
                                 <li class="list-group-item">
                                     <span class="badge">on {{ event.date_of_creation }}</span>
-                                    <span class="badge">by {{ event.creator }}</span>
+                                    <span class="badge">created by {{ event.creator }}</span>
                                     <a href="/e/{{ event.id }}"> {{ event.title }}</a>
                                 </li>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Check!</button>
+                                </span>
+                            </div>
                             {% endfor %}
                         </ul>
                     {% else %}
@@ -30,11 +66,13 @@
                     {% if contributions %}
                         <ul class="list-group">
                             {% for contrib in contributions %}
-                                <li class="list-group-item">
-                                    <span class="badge">on {{ contrib.date_of_contrib }}</span>
-                                    <span class="badge">checked by {{ contrib.admin_name.username }}</span>
-                                    <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
-                                </li>
+                                {% if contrib.event_id.dealt %}
+                                    <li class="list-group-item">
+                                        <span class="badge">on {{ contrib.date_of_contrib }}</span>
+                                        <span class="badge">checked by {{ contrib.admin_name.username }}</span>
+                                        <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     {% else %}
@@ -72,4 +110,16 @@
     {% endif %}
     <hr>
 </div>
+
+<script>
+$(document).ready(function() {
+    // This updates the form's action link for every button on the list.
+    $("button").click(function() {
+        if (this.id == "check_button") {
+            var event_id = $(this).attr("event");
+            $('#modal_form').attr("action", "/api/checkevent/" + event_id + "/");
+        }
+    });
+});
+</script>
 {% endblock %}
