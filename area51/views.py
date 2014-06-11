@@ -169,6 +169,28 @@ def addevent(request):
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
+# POST view for checking an event
+def checkevent(request, given_id):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "POST":
+        event = M.Event.objects.get(pk=given_id)
+        if 'comment' in request.POST:
+            com = request.POST['comment']
+        else:
+            com = ""
+        # Create the contribution object
+        contrib = M.Contribution.objects.create(admin_name = request.user,
+                                                event_id   = event,
+                                                comment    = com)
+        # Marking it as checked/dealt
+        event.dealt = True
+        event.save()
+        # Redirecting to the same page
+        return HttpResponseRedirect('/list/')
+    else:
+        return HttpResponse('This url is to be used for POST req ONLY!!!')
+
 # POST view for loging in
 def homelogin(request):
     c = {}
