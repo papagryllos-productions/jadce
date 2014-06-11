@@ -122,15 +122,16 @@ def edituser(request):
     if request.method == "POST":
         # Finding the object in the DB. We get the user from the request for security reasons.
         # This way in case of malicious request the only edit could happen on the logged it user.
-        us = M.User.objects.filter(username=request.user)
+        us = M.User.objects.get(username=request.user)
         if request.POST['firstname']:
-            us.update(first_name=request.POST['firstname'])
+            us.first_name = request.POST['firstname']
         if request.POST['lastname']:
-            us.update(last_name=request.POST['lastname'])
+            us.last_name = request.POST['lastname']
         if request.POST['email']:
-            us.update(email=request.POST['email'])
+            us.email = request.POST['email']
         if request.POST['phone']:
-            us.update(telephone=request.POST['phone'])
+            us.telephone = request.POST['phone']
+        us.save()
 
         # Return the user to his updated profile
         return HttpResponseRedirect('/u/' + str(request.user))
