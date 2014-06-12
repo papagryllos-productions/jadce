@@ -22,7 +22,8 @@ def user(request, username):
 # single event page
 def event(request, given_id):
     event = get_object_or_404(M.Event, pk=given_id)
-    return render(request, 'area51/event.html', {'event': event})
+    contribution = get_object_or_404(M.Contribution, event_id=given_id)
+    return render(request, 'area51/event.html', {'event': event, 'contribution': contribution})
 
 # Create a new account page
 def create_account(request):

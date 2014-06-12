@@ -23,7 +23,12 @@
       <p id="position">{{ event.position }}</p>
       <p><strong>Category: </strong>{{ event.get_category_display }}</p>
       {% if event.dealt %}
-      <p><strong>Dealt? </strong><i class="fa fa-check"></i></p>
+      <p><strong>Dealt by user: </strong> {{ contribution.admin_name.username }}, on {{ contribution.date_of_contrib }} <i class="fa fa-check"></i></p>
+      <br>
+      <p><strong>Comments</strong></p>
+      <hr>
+      {{ contribution.comment }}
+      <hr>
       {% else %}
       <p><strong>Dealt? </strong><i class="fa fa-times"></i></p>
       {% endif %}
