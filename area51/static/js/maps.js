@@ -16,11 +16,16 @@ function initialize() {
     $.get('/api/event_list', function(event_list) {
         var a = eval(event_list);
         var a_len = a.length;
+        if (a_len == 0) {
+            /* Bailing out when empty */
+            return;
+        }
         for (var i = 0; i < a_len; i++) {
             if (a[i].fields.hasOwnProperty('position')) {
                 /* Determine position */
                 var pos = a[i].fields['position'].split(',');
                 if(typeof(pos[0]) === 'undefined' || typeof(pos[1]) === 'undefined') {
+                    /* Bailing out when wrong coordinates */
                     continue;
                 }
                 var coords = new google.maps.LatLng(pos[0], pos[1]);
@@ -32,41 +37,45 @@ function initialize() {
                     tl = ""
                 }
 
-                /* Determine description */
-                var infowindow;
-                if (a[i].fields.hasOwnProperty('description')) {
-                    infowindow = new google.maps.InfoWindow({
-                        content: "<p>" + a[i].fields['description'] + "</p>" +
-                        "<p><strong>Created: </strong>" + a[i].fields['date_of_creation'] + "</p>" +
-                        "<p><a href='/e/" + a[i]['pk'] + "'>Event page</a></p>"
-                    });
-                } else {
-                    infowindow = new google.maps.InfoWindow({
-                        content: ""
-                    });
-                }
-
-                /* creating the marker */
+                /* Creating the marker */
                 var marker = new google.maps.Marker({
                     position: coords,
                     map: map,
                     title: tl
                 });
 
+                /*
+                 * Adding click event with description to the marker. We are wrapping
+                 * it in a function to avoid the "closure in a loop" JS problem.
+                 */
+                (function clf(marker, ev) {
+                    /* Determine description */
+                    var infowindow;
+                    if (ev.fields.hasOwnProperty('description')) {
+                        infowindow = new google.maps.InfoWindow({
+                            content: "<p>" + ev.fields['description'] + "</p>" +
+                            "<p><strong>Created: </strong>" + ev.fields['date_of_creation'] + "</p>" +
+                            "<p><a href='/e/" + ev['pk'] + "'>Event page</a></p>"
+                        });
+                    } else {
+                        infowindow = new google.maps.InfoWindow({
+                            content: ""
+                        });
+                    }
 
-                /* adding some events to the marker */
-                google.maps.event.addListener(marker, 'click', function() {
-                    map.setZoom(14);
-                    map.setCenter(marker.getPosition());
-                    infowindow.open(map,marker);
-                });
+                    google.maps.event.addListener(marker, 'click', function() {
+                        map.setZoom(14);
+                        map.setCenter(marker.getPosition());
+                        infowindow.open(map, marker);
+                    });
+                })(marker, a[i]);
 
-                /* we need this to put all the markers in the window */
+                /* We need this to make all the markers visible */
                 bounds.extend(marker.getPosition());
             }
         }
+        /* and finally actually fitting the bounds */
+        map.fitBounds(bounds);
     });
-    /* and finally actually fitting the bounds */
-    map.fitBounds(bounds);
 };
 google.maps.event.addDomListener(window, 'load', initialize);
