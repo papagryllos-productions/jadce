@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django import forms
 from geoposition.forms import GeopositionField
@@ -53,6 +54,7 @@ def new(request):
     return render(request, 'area51/new.html', {'form': form})
 
 # Event list view. Either displays user's events, or all o' them if he's a moderator
+@login_required
 def list_page(request):
     if request.user.is_superuser:
         opened = M.Event.objects.all().filter(dealt=False).order_by('-date_of_creation')

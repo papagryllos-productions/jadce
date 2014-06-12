@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% block content %}
-{% if user.is_authenticated %}
 {% if user.is_superuser %}
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -31,82 +30,77 @@
       </div>
     </div>
 {% endif %}
-{% endif %}
 
 <div class="container">
-    {% if user.is_authenticated %}
-        {% if user.is_superuser %}
-            <!-- Tabbed content of open and closed events -->
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#opened" data-toggle="tab"><i class="fa fa-book"></i> Open Events</a></li>
-                <li><a href="#closed" data-toggle="tab"><i class="fa fa-archive"></i> Archived Events</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="opened">
-                    {% if opened %}
-                        <ul class="list-group">
-                            {% for event in opened %}
-                            <div class="input-group">
-                                <li class="list-group-item">
-                                    <span class="badge">on {{ event.date_of_creation }}</span>
-                                    <span class="badge">created by {{ event.creator }}</span>
-                                    <a href="/e/{{ event.id }}"> {{ event.title }}</a>
-                                </li>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Check!</button>
-                                </span>
-                            </div>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <div class="alert alert-info"><p>You don't have any events yet.</p></div>
-                    {% endif %}
-                </div>
-                <div class="tab-pane fade" id="closed">
-                    {% if contributions %}
-                        <ul class="list-group">
-                            {% for contrib in contributions %}
-                                {% if contrib.event_id.dealt %}
-                                    <li class="list-group-item">
-                                        <span class="badge">on {{ contrib.date_of_contrib }}</span>
-                                        <span class="badge">checked by {{ contrib.admin_name.username }}</span>
-                                        <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <div class="alert alert-info"><p>You don't have any events yet.</p></div>
-                    {% endif %}
-                </div>
-            </div>
-        {% else %}
-            <div class="row">
-                <h3>Your events</h3>
-                <hr>
-            </div>
-
-            <div class="row">
-                {% if user_latest %}
+    {% if user.is_superuser %}
+        <!-- Tabbed content of open and closed events -->
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#opened" data-toggle="tab"><i class="fa fa-book"></i> Open Events</a></li>
+            <li><a href="#closed" data-toggle="tab"><i class="fa fa-archive"></i> Archived Events</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="opened">
+                {% if opened %}
                     <ul class="list-group">
-                        {% for event in user_latest %}
+                        {% for event in opened %}
+                        <div class="input-group">
                             <li class="list-group-item">
-                                {% if event.dealt %}
-                                    <span class="badge"><i class="fa fa-check"></i></span>
-                                {% else %}
-                                    <span class="badge"><i class="fa fa-times"></i></span>
-                                {% endif %}
+                                <span class="badge">on {{ event.date_of_creation }}</span>
+                                <span class="badge">created by {{ event.creator }}</span>
                                 <a href="/e/{{ event.id }}"> {{ event.title }}</a>
                             </li>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Check!</button>
+                            </span>
+                        </div>
                         {% endfor %}
                     </ul>
                 {% else %}
                     <div class="alert alert-info"><p>You don't have any events yet.</p></div>
                 {% endif %}
             </div>
-        {% endif %}
+            <div class="tab-pane fade" id="closed">
+                {% if contributions %}
+                    <ul class="list-group">
+                        {% for contrib in contributions %}
+                            {% if contrib.event_id.dealt %}
+                                <li class="list-group-item">
+                                    <span class="badge">on {{ contrib.date_of_contrib }}</span>
+                                    <span class="badge">checked by {{ contrib.admin_name.username }}</span>
+                                    <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+                {% endif %}
+            </div>
+        </div>
     {% else %}
-        <p>You don't have permission access here. Sorry.</p>
+        <div class="row">
+            <h3>Your events</h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            {% if user_latest %}
+                <ul class="list-group">
+                    {% for event in user_latest %}
+                        <li class="list-group-item">
+                            {% if event.dealt %}
+                                <span class="badge"><i class="fa fa-check"></i></span>
+                            {% else %}
+                                <span class="badge"><i class="fa fa-times"></i></span>
+                            {% endif %}
+                            <a href="/e/{{ event.id }}"> {{ event.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+            {% endif %}
+        </div>
     {% endif %}
     <hr>
 </div>
