@@ -33,18 +33,15 @@
             {% endif %}
             </p>
             {% if latest_events %}
-            <ul class="list-group">
+            <div class="list-group">
                 {% for event in latest_events %}
-                <li class="list-group-item">
                     {% if event.dealt %}
-                        <span class="badge"><i class="fa fa-check"></i></span>
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">{{ event.title }}</a>
                     {% else %}
-                        <span class="badge"><i class="fa fa-times"></i></span>
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">{{ event.title }}</a>
                     {% endif %}
-                    <a href="/e/{{ event.id }}">{{ event.title }}</a>
-                </li>
                 {% endfor %}
-            </ul>
+            </div>
             {% else %}
             <div class="alert alert-info"><p>No events yet.</p></div>
             {% endif %}
