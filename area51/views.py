@@ -23,8 +23,11 @@ def user(request, username):
 # single event page
 def event(request, given_id):
     event = get_object_or_404(M.Event, pk=given_id)
-    contribution = get_object_or_404(M.Contribution, event_id=given_id)
-    return render(request, 'area51/event.html', {'event': event, 'contribution': contribution})
+    if event.dealt:
+        contribution = get_object_or_404(M.Contribution, event_id=given_id)
+        return render(request, 'area51/event.html', {'event': event, 'contribution': contribution})
+    else:
+        return render(request, 'area51/event.html', {'event': event})
 
 # Create a new account page
 def create_account(request):
@@ -73,36 +76,39 @@ def data(request):
     count_all    = len(all_events)
     dealt_events = len(M.Event.objects.filter(dealt=True))
     open_events  = count_all - dealt_events
-    first        = all_events[0]
+    if count_all:
+        first        = all_events[0]
 
-    # Time-average until completion/checking
-    sumd = 0
-    first_time = True
-    all_contribs = M.Contribution.objects.all()
-    for co in all_contribs:
-        # substructing datetime objects yields a timedelta object
-        td = co.date_of_contrib - co.event_id.date_of_creation
-        if first_time:
-            # The first time we just create the timedelta object
-            sumd = td
-            first_time = False
+        # Time-average until completion/checking
+        sumd = 0
+        first_time = True
+        all_contribs = M.Contribution.objects.all()
+        for co in all_contribs:
+            # substructing datetime objects yields a timedelta object
+            td = co.date_of_contrib - co.event_id.date_of_creation
+            if first_time:
+                # The first time we just create the timedelta object
+                sumd = td
+                first_time = False
+            else:
+                # All the subsequent times we just adding. Timedeltas can be added.
+                sumd += td
+        if dealt_events:
+            # They can also be divided by integers, and be pretty printed with srt()
+            average = sumd / dealt_events
         else:
-            # All the subsequent times we just adding. Timedeltas can be added.
-            sumd += td
-    if dealt_events:
-        # They can also be divided by integers, and be pretty printed with srt()
-        average = sumd / dealt_events
-    else:
-        average = "No dealt events yet"
+            average = "No dealt events yet"
 
-    # We return them as html since they get printed immediately
-    response  = "<ul>"
-    response += "<li><strong>Events so far:</strong> " + str(count_all) + "</li>"
-    response += "<li><strong>Checked events:</strong> " + str(dealt_events) + "</li>"
-    response += "<li><strong>Open events:</strong> " + str(open_events) + "</li>"
-    response += "<li><strong>Latest event:</strong> " + str(first) + "</li>"
-    response += "<li><strong>Average completion time:</strong> " + str(average) + "</li>"
-    response += "</ul>"
+        # We return them as html since they get printed immediately
+        response  = "<ul>"
+        response += "<li><strong>Events so far:</strong> " + str(count_all) + "</li>"
+        response += "<li><strong>Checked events:</strong> " + str(dealt_events) + "</li>"
+        response += "<li><strong>Open events:</strong> " + str(open_events) + "</li>"
+        response += "<li><strong>Latest event:</strong> " + str(first) + "</li>"
+        response += "<li><strong>Average completion time:</strong> " + str(average) + "</li>"
+        response += "</ul>"
+    else:
+        response  = "<p>No events yet</p>"
     return HttpResponse(response)
 
 # API list of events
