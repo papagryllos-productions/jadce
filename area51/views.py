@@ -93,11 +93,13 @@ def data(request):
     average = sumd / dealt_events
 
     # We return them as html since they get printed immediately
-    response  = "<p><strong>Events so far:</strong> " + str(count_all) + "</p>"
-    response += "<p><strong>Checked events:</strong> " + str(dealt_events) + "</p>"
-    response += "<p><strong>Open events:</strong> " + str(open_events) + "</p>"
-    response += "<p><strong>Latest event:</strong> " + str(first) + "</p>"
-    response += "<p><strong>Average completion time:</strong> " + str(average) + "</p>"
+    response  = "<ul>"
+    response += "<li><strong>Events so far:</strong> " + str(count_all) + "</li>"
+    response += "<li><strong>Checked events:</strong> " + str(dealt_events) + "</li>"
+    response += "<li><strong>Open events:</strong> " + str(open_events) + "</li>"
+    response += "<li><strong>Latest event:</strong> " + str(first) + "</li>"
+    response += "<li><strong>Average completion time:</strong> " + str(average) + "</li>"
+    response += "</ul>"
     return HttpResponse(response)
 
 # API list of events
