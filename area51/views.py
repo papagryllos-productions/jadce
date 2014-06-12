@@ -89,8 +89,11 @@ def data(request):
         else:
             # All the subsequent times we just adding. Timedeltas can be added.
             sumd += td
-    # They can also be divided by integers, and be pretty printed with srt()
-    average = sumd / dealt_events
+    if dealt_events:
+        # They can also be divided by integers, and be pretty printed with srt()
+        average = sumd / dealt_events
+    else:
+        average = "No dealt events yet"
 
     # We return them as html since they get printed immediately
     response  = "<ul>"
