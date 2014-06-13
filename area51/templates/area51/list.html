@@ -45,12 +45,12 @@
                         {% for event in opened %}
                             <li class="list-group-item list-group-item-warning">
                                 <a href="/e/{{ event.id }}"> {{ event.title }}</a>
-                                <span class="btn-group pull-right">
-                                    <button class="btn btn-xs btn-primary" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
-                                </span>
+                                <button class="btn btn-xs btn-primary pull-right" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
                                 <!-- absolute px distances from the button to make it a little bit more legible -->
-                                <span id="date-tag" class="badge">date: {{ event.date_of_creation }}</span>
-                                <span id="creator-tag" class="badge">creator: {{ event.creator }}</span>
+                                <span id="center-list">
+                                    created by <a href="/u/{{ event.creator }}">{{ event.creator }}</a>
+                                </span>
+                                <span id="date-tag" class="badge">{{ event.date_of_creation }}</span>
                             </li>
                         {% endfor %}
                     </div>
@@ -64,8 +64,13 @@
                         {% for contrib in contributions %}
                             <li class="list-group-item list-group-item-success">
                                 <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
-                                <span class="badge">on {{ contrib.date_of_contrib }}</span>
-                                <span class="badge">checked by {{ contrib.admin_name.username }}</span>
+                                {% if contrib.comment %}
+                                    <button type="button" class="btn btn-xs btn-primary pull-right" data-container="body" data-toggle="popover" data-content="{{ contrib.comment }}"><i class="fa fa-envelope-o"></i> Comment</button>
+                                {% endif %}
+                                <span id="center-list">
+                                    checked by <a href="/u/{{ contrib.admin_name.username }}">{{ contrib.admin_name.username }}</a>
+                                </span>
+                                <span id="date-tag" class="badge">{{ contrib.date_of_contrib }}</span>
                             </li>
                         {% endfor %}
                     </div>
@@ -107,6 +112,8 @@
 
 <script>
 $(document).ready(function() {
+    // Activate comment pop-overs
+    $('[data-toggle="popover"]').popover({trigger: 'hover','placement': 'left'});
     // This updates the form's action link for every button on the list.
     $("button").click(function() {
         if (this.id == "check_button") {

@@ -39,14 +39,19 @@ img.no_stretching {
   font-size:180%;
 }
 
-#center-tag {
+#center-list {
   position: absolute;
-  right: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  /* right: 450px; */
+  width:200px;
 }
 
 #date-tag {
   position: absolute;
-  right: 250px;
+  right: 130px;
 }
 
 /*
