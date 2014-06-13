@@ -19,14 +19,9 @@
         <!-- List of data in the first column and the map in the second -->
         <div class="col-md-5"> <!-- These need to add up to 12 -->
             <p align="left"><strong id="just-bigger-text">Latest Events: </strong>
-            <a align="right" href="feed">
-                <button type="button" class="btn btn-default btn-xs pull-right">
-                    <i class="fa fa-rss fa-fw"></i> RSS
-                </button>
-            </a>
             {% if user.is_authenticated %}
             <a align="right" href="new">
-                <button type="button" class="btn btn-success btn-xs pull-right">
+                <button type="button" class="btn btn-success btn-sm pull-right">
                     <i class="fa fa-plus fa-fw"></i> New event
                 </button>
             </a>
