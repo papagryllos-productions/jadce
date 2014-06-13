@@ -54,6 +54,14 @@ img.no_stretching {
   right: 130px;
 }
 
+/* Dynamically added elements of alerts and messages */
+.error {
+  color: red;
+}
+.fine {
+  color: green;
+}
+
 /*
  * This is probably the worst hack ever. We assign some of bootstrap's css
  * to the special ids of the django form since they are hard coded and wrapping
