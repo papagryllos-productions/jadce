@@ -3,32 +3,32 @@
 
 {% block content %}
 {% if user.is_superuser %}
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Mark Event Checked</h4>
-          </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Mark Event Checked</h4>
+            </div>
 
-          <form action="/api/checkevent/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
-            <div class="modal-body">
-              {% csrf_token %}
-              <div class="form-group">
-                <label class="col-lg-3 control-label">You may leave a comment:</label>
-                <div class="col-lg-8">
-                  <input name="comment" class="form-control" type="text" value="">
+            <form action="/api/checkevent/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Comment?</label>
+                        <div class="col-lg-8">
+                            <input name="comment" class="form-control" type="text" value="">
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <input type="submit" class="btn btn-primary" value="Checked">
-            </div>
-          </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Checked">
+                </div>
+            </form>
         </div>
-      </div>
     </div>
+</div>
 {% endif %}
 
 <div class="container">
@@ -41,39 +41,35 @@
         <div class="tab-content">
             <div class="tab-pane fade in active" id="opened">
                 {% if opened %}
-                    <ul class="list-group">
+                    <div class="list-group">
                         {% for event in opened %}
-                        <div class="input-group">
-                            <li class="list-group-item">
+                            <li class="list-group-item list-group-item-warning">
+                                <a href="/e/{{ event.id }}"> {{ event.title }}</a>
+                                <span class="btn-group pull-right">
+                                    <button class="btn btn-xs btn-primary" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
+                                </span>
                                 <span class="badge">on {{ event.date_of_creation }}</span>
                                 <span class="badge">created by {{ event.creator }}</span>
-                                <a href="/e/{{ event.id }}"> {{ event.title }}</a>
                             </li>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Check!</button>
-                            </span>
-                        </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 {% else %}
-                    <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+                    <div class="alert alert-info"><p><i class="fa fa-info-circle"></i> No open events yet.</p></div>
                 {% endif %}
             </div>
             <div class="tab-pane fade" id="closed">
                 {% if contributions %}
-                    <ul class="list-group">
+                    <div class="list-group">
                         {% for contrib in contributions %}
-                            {% if contrib.event_id.dealt %}
-                                <li class="list-group-item">
-                                    <span class="badge">on {{ contrib.date_of_contrib }}</span>
-                                    <span class="badge">checked by {{ contrib.admin_name.username }}</span>
-                                    <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
-                                </li>
-                            {% endif %}
+                            <li class="list-group-item list-group-item-success">
+                                <a href="/e/{{ contrib.event_id.id }}"> {{ contrib.event_id.title }}</a>
+                                <span class="badge">on {{ contrib.date_of_contrib }}</span>
+                                <span class="badge">checked by {{ contrib.admin_name.username }}</span>
+                            </li>
                         {% endfor %}
-                    </ul>
+                    </div>
                 {% else %}
-                    <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+                    <div class="alert alert-info"><p><i class="fa fa-info-circle"></i> No completed/checked events yet.</p></div>
                 {% endif %}
             </div>
         </div>
@@ -85,20 +81,23 @@
 
         <div class="row">
             {% if user_latest %}
-                <ul class="list-group">
+                <div class="list-group">
                     {% for event in user_latest %}
-                        <li class="list-group-item">
-                            {% if event.dealt %}
-                                <span class="badge"><i class="fa fa-check"></i></span>
-                            {% else %}
-                                <span class="badge"><i class="fa fa-times"></i></span>
-                            {% endif %}
-                            <a href="/e/{{ event.id }}"> {{ event.title }}</a>
-                        </li>
+                        {% if event.dealt %}
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">
+                            {{ event.title }}
+                            <span class="badge">created on {{ event.date_of_creation }}</span>
+                        </a>
+                        {% else %}
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">
+                            {{ event.title }}
+                            <span class="badge">created on {{ event.date_of_creation }}</span>
+                        </a>
+                        {% endif %}
                     {% endfor %}
-                </ul>
+                </div>
             {% else %}
-                <div class="alert alert-info"><p>You don't have any events yet.</p></div>
+                <div class="alert alert-info"><p><i class="fa fa-info-circle"></i> You don't have any events yet.</p></div>
             {% endif %}
         </div>
     {% endif %}

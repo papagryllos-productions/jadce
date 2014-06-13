@@ -17,8 +17,8 @@
 <div class="container">
     <div class="row">
         <!-- List of data in the first column and the map in the second -->
-        <div class="col-md-5">
-            <p align="left"><strong id="just-bigger-text">Events: </strong>
+        <div class="col-md-5"> <!-- These need to add up to 12 -->
+            <p align="left"><strong id="just-bigger-text">Latest Events: </strong>
             <a align="right" href="feed">
                 <button type="button" class="btn btn-default btn-xs pull-right">
                     <i class="fa fa-rss fa-fw"></i> RSS
@@ -36,17 +36,23 @@
             <div class="list-group">
                 {% for event in latest_events %}
                     {% if event.dealt %}
-                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">{{ event.title }}</a>
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">
+                            {{ event.title }}
+                            <span class="badge">by {{ event.creator }}</span>
+                        </a>
                     {% else %}
-                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">{{ event.title }}</a>
+                        <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">
+                            {{ event.title }}
+                            <span class="badge">by {{ event.creator }}</span>
+                        </a>
                     {% endif %}
                 {% endfor %}
             </div>
             {% else %}
-            <div class="alert alert-info"><p>No events yet.</p></div>
+            <div class="alert alert-info"><p><i class="fa fa-info-circle"></i> No events yet.</p></div>
             {% endif %}
         </div>
-        <div id="map-main" class="col-md-7" > <!-- These need to add up to 12 -->
+        <div id="map-main" class="col-md-7" >
             <h3 align="center">Latest Sightings</h3>
             <div id="map-canvas" class="container"> <!-- map here --> </div>
         </div>
