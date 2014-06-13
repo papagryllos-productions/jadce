@@ -9,7 +9,7 @@ class LatestEntriesFeed(Feed):
     description = "Latest alien sightings in the wild"
 
     def items(self):
-        return M.Event.objects.all().order_by('-date_of_creation')[:20]
+        return M.Event.objects.all().order_by('date_of_creation')[:20]
 
     def item_title(self, item):
         return "%s by %s" % (item.title, item.creator)
