@@ -11,8 +11,8 @@ import area51.models as M
 
 # The main page
 def home(request):
-    latest_events = M.Event.objects.all().order_by('date_of_creation')[:20]
-    context = {'latest_events': reversed(latest_events)}
+    latest_events = M.Event.objects.all().order_by('date_of_creation').reverse()[:20]
+    context = {'latest_events': latest_events}
     return render(request, 'area51/index.html', context)
 
 # user profile view
