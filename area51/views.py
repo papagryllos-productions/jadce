@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
 from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
@@ -61,9 +62,18 @@ def new(request):
 def list_page(request):
     if request.user.is_superuser:
         opened = M.Event.objects.all().filter(dealt=False).order_by('-date_of_creation')
+        paginator = Paginator(opened, 20) # Paginating with 20 elements per page.
+        page = request.GET.get('page')    # Getting and processing the requested page number.
+        try:
+            paginated_open = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_open = paginator.page(1)
+        except EmptyPage:
+            paginated_open = paginator.page(paginator.num_pages)
+
         # This is what we need to get all the info for the completed events:
         contributions = M.Contribution.objects.all()
-        context = {"opened": opened, "contributions": contributions}
+        context = {"opened": paginated_open, "contributions": contributions}
     else:
         user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
         context = {"user_latest": user_latest}

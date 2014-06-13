@@ -54,6 +54,18 @@
                             </li>
                         {% endfor %}
                     </div>
+                    <!-- Pagination -->
+                    <div align="center" class="row row-fluid">
+                        <ul class="pagination">
+                            {% if opened.has_previous %}
+                                <li><a href="?page={{ opened.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
+                            <li><a href="#">{{ opened.number }} of {{ opened.paginator.num_pages }}</a></li>
+                            {% if opened.has_next %}
+                                <li><a href="?page={{ opened.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
                 {% else %}
                     <div class="alert alert-info"><p><i class="fa fa-info-circle"></i> No open events yet.</p></div>
                 {% endif %}
