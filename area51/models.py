@@ -28,7 +28,7 @@ class Event(models.Model):
     description = models.TextField()
     category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
     dealt = models.BooleanField(default=False)
-    date_of_creation = models.DateField(auto_now=True)
+    date_of_creation = models.DateTimeField(auto_now=True)
     photo1 = models.ImageField(upload_to="aliens", null=True, blank=True)
     photo2 = models.ImageField(upload_to="aliens", null=True, blank=True)
     photo3 = models.ImageField(upload_to="aliens", null=True, blank=True)
@@ -39,7 +39,7 @@ class Contribution(models.Model):
         return self.comment
     admin_name = models.ForeignKey(User)
     event_id = models.ForeignKey(Event)
-    date_of_contrib = models.DateField(auto_now=True)
+    date_of_contrib = models.DateTimeField(auto_now=True)
     comment = models.TextField()
 
 class UserForm(ModelForm):
