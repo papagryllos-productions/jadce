@@ -32,11 +32,21 @@ img.no_stretching {
 }
 
 #submit_buttons {
-    padding-top:55px;
+    padding-top:100px;
 }
 
 #just-bigger-text {
   font-size:180%;
+}
+
+#center-tag {
+  position: absolute;
+  right: 250px;
+}
+
+#date-tag {
+  position: absolute;
+  right: 250px;
 }
 
 /*

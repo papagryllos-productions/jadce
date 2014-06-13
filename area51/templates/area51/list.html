@@ -48,8 +48,9 @@
                                 <span class="btn-group pull-right">
                                     <button class="btn btn-xs btn-primary" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
                                 </span>
-                                <span class="badge">on {{ event.date_of_creation }}</span>
-                                <span class="badge">created by {{ event.creator }}</span>
+                                <!-- absolute px distances from the button to make it a little bit more legible -->
+                                <span id="date-tag" class="badge">date: {{ event.date_of_creation }}</span>
+                                <span id="creator-tag" class="badge">creator: {{ event.creator }}</span>
                             </li>
                         {% endfor %}
                     </div>

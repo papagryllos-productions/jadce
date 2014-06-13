@@ -33,12 +33,12 @@
                     {% if event.dealt %}
                         <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">
                             {{ event.title }}
-                            <span class="badge">by {{ event.creator }}</span>
+                            <span class="label label-default pull-right">by {{ event.creator }}</span>
                         </a>
                     {% else %}
                         <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">
                             {{ event.title }}
-                            <span class="badge">by {{ event.creator }}</span>
+                            <span class="label label-default pull-right">by {{ event.creator }}</span>
                         </a>
                     {% endif %}
                 {% endfor %}
