@@ -13,16 +13,16 @@ function successy(pos) {
   $('#id_position_1').val(crd.longitude);
 
   /* triggering keyup event for the widget to update itself */
-  var e = jQuery.Event("keyup");
+  var e = jQuery.Event('keyup');
   e.which = 20;
   e.ctrlKey = false;
   e.keyCode = 20;
-  $("#id_position_0").trigger(e);
-};
+  $('#id_position_0').trigger(e);
+}
 
 function errory(err) {
   console.warn('ERROR(' + err.code + '): ' + err.message);
-};
+}
 
 /* let the magic happen */
 navigator.geolocation.getCurrentPosition(successy, errory, options);

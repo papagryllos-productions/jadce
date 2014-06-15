@@ -7,7 +7,7 @@ function initialize() {
     };
 
     /* Create the map object */
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     /* Map Bounds */
     bounds = new google.maps.LatLngBounds();
@@ -24,7 +24,7 @@ function initialize() {
             if (a[i].fields.hasOwnProperty('position')) {
                 /* Determine position */
                 var pos = a[i].fields['position'].split(',');
-                if(typeof(pos[0]) === 'undefined' || typeof(pos[1]) === 'undefined') {
+                if (typeof(pos[0]) === 'undefined' || typeof(pos[1]) === 'undefined') {
                     /* Bailing out when wrong coordinates */
                     continue;
                 }
@@ -34,7 +34,7 @@ function initialize() {
                 if (a[i].fields.hasOwnProperty('title')) {
                     tl = a[i].fields['title'];
                 } else {
-                    tl = ""
+                    tl = '';
                 }
 
                 /* Creating the marker */
@@ -53,13 +53,13 @@ function initialize() {
                     var infowindow;
                     if (ev.fields.hasOwnProperty('description')) {
                         infowindow = new google.maps.InfoWindow({
-                            content: "<p>" + ev.fields['description'] + "</p>" +
-                            "<p><strong>Created: </strong>" + ev.fields['date_of_creation'] + "</p>" +
+                            content: '<p>' + ev.fields['description'] + '</p>' +
+                            '<p><strong>Created: </strong>' + ev.fields['date_of_creation'] + '</p>' +
                             "<p><a href='/e/" + ev['pk'] + "'>Event page</a></p>"
                         });
                     } else {
                         infowindow = new google.maps.InfoWindow({
-                            content: ""
+                            content: ''
                         });
                     }
 
@@ -77,5 +77,5 @@ function initialize() {
         /* and finally actually fitting the bounds */
         map.fitBounds(bounds);
     });
-};
+}
 google.maps.event.addDomListener(window, 'load', initialize);
