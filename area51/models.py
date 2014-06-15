@@ -22,7 +22,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
     def get_absolute_url(self):
-        return "/event/%i/" % self.id
+        return "/e/%i/" % self.id
     position = GeopositionField()
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(User)
