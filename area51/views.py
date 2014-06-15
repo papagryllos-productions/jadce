@@ -142,7 +142,7 @@ def adduser(request):
     c = {}
     c.update(csrf(request))
     if request.method == "POST":
-        # Let's check passwords first. This should probably happen in JS
+        # Let's check passwords first. This should probably happen in JS too.
         if request.POST['password1'] == request.POST['password2']:
             password = request.POST['password1']
         else:
@@ -156,7 +156,9 @@ def adduser(request):
                                           username = request.POST['username'],
                                           password = password)
         user.save()
-        # Return the user to home page
+        # Log user in to his account
+        logged_in = authenticate(username=request.POST['username'], password=password)
+        login(request, logged_in)
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
