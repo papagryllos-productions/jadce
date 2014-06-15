@@ -1,4 +1,7 @@
 Django==1.6.4
 Pillow==2.4.0
 South==0.8.4
+django-appconf==0.6
 django-geoposition==0.2.0
+pytz==2014.4
+six==1.7.0
