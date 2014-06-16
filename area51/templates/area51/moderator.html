@@ -1,0 +1,109 @@
+{% extends "area51/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <hr>
+            <p class="fa fa-book">OPEN EVENTS: {{ open_events }}</p>
+            <p class="fa fa-archive">ARCHIVED EVENTS: {{ dealt_events }}</p>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading" align="center"><p><strong>USERS<p></strong></div>
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <td>#</td>
+                    <td><strong>Admin</strong></td>
+                    <td><strong>Moderator</strong></td>
+                    <td><strong>Active</strong></td>
+                    <td><strong>Username</strong></td>
+                    <td><strong>First name</strong></td>
+                    <td><strong>Last name</strong></td>
+                    <td><strong>Events</strong></td>
+                    <td><strong>Date Joined</strong></td>
+                    <td><strong>Last login</strong></td>
+                    <td><strong>Contact</strong></td>
+                </tr>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    {% if user.is_staff %}
+                    <td><i class="fa fa-check"></i></td>
+                    {% else %}
+                    <td><i class="fa fa-times"></i></td>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <td><i class="fa fa-check"></i></td>
+                    {% else %}
+                    <td><i class="fa fa-times"></i></td>
+                    {% endif %}
+                    {% if user.is_active %}
+                    <td href="#" class="user_id" data-pk={{ user.id }}><i class="fa fa-check"></i></td>
+                    {% else %}
+                    <td href="#" class="user_id" data-pk={{ user.id }}><i class="fa fa-times"></i></td>
+                    {% endif %}
+                    <td href="#" class="username" data-pk={{ user.id }}>{{ user.username }}</td>
+                    <td href="#" class="first_name" data-pk={{ user.id }}>{{ user.first_name }}</td>
+                    <td href="#" class="last_name" data-pk={{ user.id }}>{{ user.last_name }}</td>
+                    <td class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">User Events<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            {% for event in all_events %}
+                                {% if event.creator == user %}
+                                <li><a href="/e/{{ event.id }}/">{{ event.id }} {{ event.title }}
+                                    {% if event.dealt %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+                                </a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ user.date_joined }}</td>
+                    <td>{{ user.last_login }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+$(window).load(function() {
+        $('.username').editable({
+            type: 'text',
+            name: 'username',
+            url: '/api/panel/',
+        });
+
+        $('.first_name').editable({
+            type: 'text',
+            name: 'first_name',
+            url: '/api/panel/',
+        });
+
+        $('.last_name').editable({
+            type: 'text',
+            name: 'last_name',
+            url: '/api/panel/',
+        });
+
+        $('.user_id').editable({
+            type: 'text',
+            name: 'is_active',
+            url: '/api/panel/',
+        });
+});
+</script>
+{% endblock %}
+

@@ -64,7 +64,17 @@
                                 <i class="fa fa-wrench fa-fw"></i> Admin
                             </button>
                         </a>
+                        {% else %}
+
+                        {% if user.is_superuser %}
+                        <a align="right" href="/moderator">
+                            <button type="button" class="btn btn-success">
+                                <i class="fa fa-edit fa-fw"></i> moderator
+                            </button>
+                        </a>
                         {% endif %}
+                        {% endif %}
+
                         <input type="submit" class="btn btn-danger" value="Log out">
                     </form>
                 </div>
