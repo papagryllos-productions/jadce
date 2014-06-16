@@ -108,13 +108,11 @@ def data(request):
         else:
             average = "No dealt events yet"
 
-        first = all_events[0]
         # We return them as html since they get printed immediately
         response  = "<ul>"
         response += "<li><strong>Events so far:</strong> " + str(number_all) + "</li>"
         response += "<li><strong>Checked events:</strong> " + str(number_dealt) + "</li>"
         response += "<li><strong>Open events:</strong> " + str(number_open) + "</li>"
-        response += "<li><strong>Latest event:</strong> " + str(first) + "</li>"
         response += "<li><strong>Average completion time:</strong> " + str(average) + "</li>"
         response += "</ul>"
     else:
