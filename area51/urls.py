@@ -18,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^api/checkevent/(?P<given_id>\w+)/$', views.checkevent, name='checkevent'),
     url(r'^api/login/$', views.homelogin, name='homelogin'),
     url(r'^api/logout/$', views.homelogout, name='homelogout'),
+    url(r'^api/panel/$', views.panel, name='panel'),
+    url(r'^moderator/$', views.mod, name='mod'),
     url(r'^feed/$', LatestEntriesFeed()),
 )

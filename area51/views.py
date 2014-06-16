@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
@@ -265,3 +266,31 @@ def homelogout(request):
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
+
+# moderator view
+def mod(request):
+    all_events = M.Event.objects.all()
+    users = M.User.objects.all()
+    count_all = len(all_events)
+    dealt_events = len(M.Event.objects.filter(dealt=True))
+    open_events  = count_all - dealt_events
+    data = { 'dealt_events': dealt_events, 'open_events': open_events, 'all_events': all_events, 'users': users}
+    return render(request, 'area51/moderator.html', data)
+
+# POST view for moderator panel
+@csrf_exempt
+def panel(request):
+    if request.method == "POST":
+        user = M.User.objects.get(pk=request.POST['pk'])
+        if request.POST['name'] == 'first_name':
+            user.first_name = request.POST['value']
+        if request.POST['name'] == 'last_name':
+            user.last_name = request.POST['value']
+        if request.POST['name'] == 'username':
+            user.username = request.POST['value']
+        if request.POST['name'] == 'is_active':
+            user.is_active = request.POST['value']
+        user.save()
+        return HttpResponse('User Updated')
+    else:
+        return HttpResponse('POst Only')
