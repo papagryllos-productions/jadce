@@ -1,6 +1,7 @@
 from django.contrib import admin
-from area51.models import User, Event, Contribution
+import area51.models as M
 
-admin.site.register(Event)
-admin.site.register(User)
-admin.site.register(Contribution)
+admin.site.register(M.Event)
+admin.site.register(M.User)
+admin.site.register(M.Contribution)
+admin.site.register(M.Aliencategories)

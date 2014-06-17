@@ -21,7 +21,7 @@
       <p><strong>Date: </strong>{{ event.date_of_creation }}</p>
       <p><strong>Description: </strong>{{ event.description }}</p>
       <p id="position">{{ event.position }}</p>
-      <p><strong>Category: </strong>{{ event.get_category_display }}</p>
+      <p><strong>Category: </strong>{{ event.category }}</p>
       {% if event.dealt %}
       <p><strong>Dealt by user: </strong> {{ contribution.admin_name.username }}, on {{ contribution.date_of_contrib }} <i class="fa fa-check"></i></p>
       <br>

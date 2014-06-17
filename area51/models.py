@@ -4,17 +4,6 @@ from geoposition.fields import GeopositionField
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 
-ALIENCATEGORIES = (
-    (0, 'UFO'),
-    (1, 'Alien in the Flesh'),
-    (2, 'Strange Lights'),
-    (3, 'Glitch in the Matrix'),
-    (4, 'Gojira Invasion'),
-    (5, 'Vortex to Unknown'),
-    (6, 'Messiah Returns'),
-    (7, 'Man stuck in Astral Projection'),
-)
-
 class User(AbstractUser):
     telephone = models.CharField(max_length=13, null=True)
 
@@ -27,13 +16,18 @@ class Event(models.Model):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(User)
     description = models.TextField()
-    category = models.IntegerField(max_length=1, choices=ALIENCATEGORIES, default=0)
+    category = models.CharField(max_length=100)
     dealt = models.BooleanField(default=False)
     date_of_creation = models.DateTimeField('date created', default=datetime.now)
     photo1 = models.ImageField(upload_to="aliens", null=True, blank=True)
     photo2 = models.ImageField(upload_to="aliens", null=True, blank=True)
     photo3 = models.ImageField(upload_to="aliens", null=True, blank=True)
     photo4 = models.ImageField(upload_to="aliens", null=True, blank=True)
+
+class Aliencategories(models.Model):
+    def __str__(self):
+        return self.name
+    name = models.CharField(max_length=100)
 
 class Contribution(models.Model):
     def __str__(self):

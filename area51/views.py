@@ -40,7 +40,6 @@ class EventForm(forms.Form):
     title = forms.CharField(max_length=100, required=True)
     description = forms.CharField(widget = forms.Textarea, required=False)
     position = GeopositionField()
-    category = forms.ChoiceField(choices=M.ALIENCATEGORIES)
     photo1 = forms.ImageField(required=False)
     photo2 = forms.ImageField(required=False)
     photo3 = forms.ImageField(required=False)
@@ -56,7 +55,10 @@ def new(request):
             raise Http404
     else:
         form = EventForm()
-    return render(request, 'area51/new.html', {'form': form})
+    # Need to pull the categories from the DB to get them available
+    objs = M.Aliencategories.objects.all()
+    available_choices = [obj.name for obj in objs]
+    return render(request, 'area51/new.html', {'form': form, 'categories': available_choices})
 
 # Event list view. Either displays user's events, or all o' them if he's a moderator
 @login_required
