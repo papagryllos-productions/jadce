@@ -1,3 +1,7 @@
+"""
+Connection interface between models (DB - backend) and templates (frontend)
+"""
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
@@ -6,10 +10,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from django import forms
-from geoposition.forms import GeopositionField
 
 import area51.models as M
+from area51.forms import EventForm
 
 # The main page
 def home(request):
@@ -35,26 +38,9 @@ def event(request, given_id):
 def create_account(request):
     return render(request, 'area51/create_account.html')
 
-# a form for the new-event page
-class EventForm(forms.Form):
-    title = forms.CharField(max_length=100, required=True)
-    description = forms.CharField(widget = forms.Textarea, required=False)
-    position = GeopositionField()
-    photo1 = forms.ImageField(required=False)
-    photo2 = forms.ImageField(required=False)
-    photo3 = forms.ImageField(required=False)
-    photo4 = forms.ImageField(required=False)
-
 # New event page
 def new(request):
-    if request.method == "POST":
-        form = EventForm(request.POST, request.FILES)
-        if form.is_valid():
-            HttpResponseRedirect('/thanks/')
-        else:
-            raise Http404
-    else:
-        form = EventForm()
+    form = EventForm()
     # Need to pull the categories from the DB to get them available
     objs = M.Aliencategories.objects.all()
     available_choices = [obj.name for obj in objs]
@@ -81,6 +67,10 @@ def list_page(request):
         user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
         context = {"user_latest": user_latest}
     return render(request, 'area51/list.html', context)
+
+###############################################################################
+##########################         API calls         ##########################
+###############################################################################
 
 # Auxiliary view for AJAX requests
 def data(request):
@@ -165,6 +155,7 @@ def adduser(request):
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
 # POST view for editting a users profile
+@login_required
 def edituser(request):
     c = {}
     c.update(csrf(request))
@@ -188,6 +179,7 @@ def edituser(request):
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
 # POST view for adding a new event
+@login_required
 def addevent(request):
     c = {}
     c.update(csrf(request))
@@ -220,6 +212,7 @@ def addevent(request):
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
 # POST view for checking an event
+@login_required
 def checkevent(request, given_id):
     c = {}
     c.update(csrf(request))
@@ -267,7 +260,12 @@ def homelogout(request):
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
+###############################################################################
+##########################           Admin           ##########################
+###############################################################################
+
 # moderator view
+@login_required
 def mod(request):
     all_events = M.Event.objects.all()
     users = M.User.objects.all()
@@ -293,4 +291,4 @@ def panel(request):
         user.save()
         return HttpResponse('User Updated')
     else:
-        return HttpResponse('POst Only')
+        return HttpResponse('Post Only')

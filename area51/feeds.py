@@ -1,3 +1,7 @@
+"""
+RSS feed generation code based on the models
+"""
+
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 
