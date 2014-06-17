@@ -35,34 +35,37 @@
     {% if user.is_superuser %}
         <!-- Tabbed content of open and closed events -->
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#opened" data-toggle="tab"><i class="fa fa-book"></i> Open Events</a></li>
+            <li class="active"><a href="#open_events" data-toggle="tab"><i class="fa fa-book"></i> Open Events</a></li>
             <li><a href="#closed" data-toggle="tab"><i class="fa fa-archive"></i> Archived Events</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="opened">
-                {% if opened %}
-                    <div class="list-group">
-                        {% for event in opened %}
-                            <li class="list-group-item list-group-item-warning">
-                                <a href="/e/{{ event.id }}"> {{ event.title }}</a>
-                                <button class="btn btn-xs btn-primary pull-right" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
-                                <!-- absolute px distances from the button to make it a little bit more legible -->
-                                <span id="center-list">
-                                    created by <a href="/u/{{ event.creator }}">{{ event.creator }}</a>
-                                </span>
-                                <span id="date-tag" class="badge">{{ event.date_of_creation }}</span>
-                            </li>
+            <div class="tab-pane fade in active" id="open_events">
+                {% if open_events %}
+                    {% for cat in categories %}
+                        <h3 align="center"><strong>{{ cat }}</strong></h3>
+                        <div class="list-group">
+                        {% for event in open_events %}
+                            {% if event.category == cat %}
+                                <li class="list-group-item list-group-item-warning">
+                                    <a href="/e/{{ event.id }}"> {{ event.title }}</a>
+                                    <button class="btn btn-xs btn-primary pull-right" id="check_button" event="{{ event.id }}" data-toggle="modal" data-target="#myModal">Mark it Checked</button>
+                                    <!-- absolute px distances from the button to make it a little bit more legible -->
+                                    <span id="center-list"> created by <a href="/u/{{ event.creator }}">{{ event.creator }}</a> </span>
+                                    <span id="date-tag" class="badge">{{ event.date_of_creation }}</span>
+                                </li>
+                            {% endif %}
                         {% endfor %}
-                    </div>
+                        </div>
+                    {% endfor %}
                     <!-- Pagination -->
                     <div align="center" class="row row-fluid">
                         <ul class="pagination">
-                            {% if opened.has_previous %}
-                                <li><a href="?page={{ opened.previous_page_number }}">&laquo;</a></li>
+                            {% if open_events.has_previous %}
+                                <li><a href="?page={{ open_events.previous_page_number }}">&laquo;</a></li>
                             {% endif %}
-                            <li><a href="#">{{ opened.number }} of {{ opened.paginator.num_pages }}</a></li>
-                            {% if opened.has_next %}
-                                <li><a href="?page={{ opened.next_page_number }}">&raquo;</a></li>
+                            <li><a href="#">{{ open_events.number }} of {{ open_events.paginator.num_pages }}</a></li>
+                            {% if open_events.has_next %}
+                                <li><a href="?page={{ open_events.next_page_number }}">&raquo;</a></li>
                             {% endif %}
                         </ul>
                     </div>

@@ -50,8 +50,10 @@ def new(request):
 @login_required
 def list_page(request):
     if request.user.is_superuser:
-        opened = M.Event.objects.all().filter(dealt=False).order_by('-date_of_creation')
-        paginator = Paginator(opened, 20) # Paginating with 20 elements per page.
+        open_events = M.Event.objects.all().filter(dealt=False).order_by('-date_of_creation')
+
+        # Paginating with 20 elements per page.
+        paginator = Paginator(open_events, 20)
         page = request.GET.get('page')    # Getting and processing the requested page number.
         try:
             paginated_open = paginator.page(page)
@@ -60,9 +62,14 @@ def list_page(request):
         except EmptyPage:
             paginated_open = paginator.page(paginator.num_pages)
 
+        # We need to deliver the categories as well
+        categories = [event.category for event in paginated_open]
+        categories = list(set(categories))    # keeping unique items
+
         # This is what we need to get all the info for the completed events:
         contributions = M.Contribution.objects.all()
-        context = {"opened": paginated_open, "contributions": contributions}
+
+        context = {"open_events": paginated_open, "categories": categories, "contributions": contributions}
     else:
         user_latest = M.Event.objects.all().filter(creator=request.user).order_by('-date_of_creation')
         context = {"user_latest": user_latest}
