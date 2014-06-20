@@ -250,8 +250,11 @@ def homelogin(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            login(request, user)
-            return HttpResponseRedirect('/')
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponse("User is deactivated. Please contact the administrator.")
         else:
             raise Http404
     else:
@@ -274,6 +277,10 @@ def homelogout(request):
 # moderator view
 @login_required
 def mod(request):
+    # Only moderators allowed
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     all_events = M.Event.objects.all()
     users = M.User.objects.all()
     count_all = len(all_events)
@@ -284,18 +291,37 @@ def mod(request):
 
 # POST view for moderator panel
 @csrf_exempt
+@login_required
 def panel(request):
+    # Only moderators allowed
+    if not request.user.is_superuser:
+        return HttpResponse('505 Forbidden. User is not a moderator.')
+
     if request.method == "POST":
-        user = M.User.objects.get(pk=request.POST['pk'])
-        if request.POST['name'] == 'first_name':
-            user.first_name = request.POST['value']
-        if request.POST['name'] == 'last_name':
-            user.last_name = request.POST['value']
-        if request.POST['name'] == 'username':
-            user.username = request.POST['value']
-        if request.POST['name'] == 'is_active':
-            user.is_active = request.POST['value']
-        user.save()
-        return HttpResponse('User Updated')
+        if 'pk' in request.POST:
+            user = M.User.objects.get(pk=request.POST['pk'])
+            if 'name' in request.POST:
+                if request.POST['name'] == 'first_name':
+                    user.first_name = request.POST['value']
+                elif request.POST['name'] == 'last_name':
+                    user.last_name = request.POST['value']
+                elif request.POST['name'] == 'username':
+                    user.username = request.POST['value']
+                user.save()
+                return HttpResponseRedirect('/moderator/')
+            else:
+                return HttpResponse('Wrong my friend')
+        else:
+            return HttpResponse('No user given')
     else:
-        return HttpResponse('Post Only')
+        # Hack around get requests, so we wouldn't need an extra view
+        user = M.User.objects.get(pk=request.GET['pk'])
+        if 'name' in request.GET:
+            if request.GET['name'] == 'is_active':
+                user.is_active = not user.is_active
+            if request.GET['name'] == 'is_superuser':
+                user.is_superuser = not user.is_superuser
+            user.save()
+            return HttpResponseRedirect('/moderator/')
+        else:
+            return HttpResponse('Wrong my friend')

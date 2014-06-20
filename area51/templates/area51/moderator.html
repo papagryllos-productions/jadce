@@ -19,9 +19,8 @@
             <table class="table table-striped table-bordered table-condensed">
                 <tr>
                     <td>#</td>
-                    <td><strong>Admin</strong></td>
                     <td><strong>Moderator</strong></td>
-                    <td><strong>Active</strong></td>
+                    <td><strong>Deactivate</strong></td>
                     <td><strong>Username</strong></td>
                     <td><strong>First name</strong></td>
                     <td><strong>Last name</strong></td>
@@ -33,20 +32,33 @@
                 {% for user in users %}
                 <tr>
                     <td>{{ user.id }}</td>
-                    {% if user.is_staff %}
-                    <td><i class="fa fa-check"></i></td>
-                    {% else %}
-                    <td><i class="fa fa-times"></i></td>
-                    {% endif %}
                     {% if user.is_superuser %}
-                    <td><i class="fa fa-check"></i></td>
+                    <td align="center"><i class="fa fa-check"></i></td>
                     {% else %}
-                    <td><i class="fa fa-times"></i></td>
+                    <td href="#" align="center">
+                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_superuser">
+                            <button type="button" class="btn btn-xs btn-success">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </a>
+                    </td>
                     {% endif %}
                     {% if user.is_active %}
-                    <td href="#" class="user_id" data-pk={{ user.id }}><i class="fa fa-check"></i></td>
+                    <td href="#" align="center">
+                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_active">
+                            <button type="button" class="btn btn-xs btn-danger">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </a>
+                    </td>
                     {% else %}
-                    <td href="#" class="user_id" data-pk={{ user.id }}><i class="fa fa-times"></i></td>
+                    <td href="#" align="center">
+                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_active">
+                            <button type="button" class="btn btn-xs btn-success">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </a>
+                    </td>
                     {% endif %}
                     <td href="#" class="username" data-pk={{ user.id }}>{{ user.username }}</td>
                     <td href="#" class="first_name" data-pk={{ user.id }}>{{ user.first_name }}</td>
@@ -95,12 +107,6 @@ $(window).load(function() {
         $('.last_name').editable({
             type: 'text',
             name: 'last_name',
-            url: '/api/panel/',
-        });
-
-        $('.user_id').editable({
-            type: 'text',
-            name: 'is_active',
             url: '/api/panel/',
         });
 });
