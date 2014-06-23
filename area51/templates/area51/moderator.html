@@ -53,7 +53,8 @@
                     <td><strong>Events</strong></td>
                     <td><strong>Date Joined</strong></td>
                     <td><strong>Last login</strong></td>
-                    <td><strong>Contact</strong></td>
+                    <td><strong>Phone</strong></td>
+                    <td><strong>email</strong></td>
                 </tr>
                 {% for us in users %}
                 <tr>
@@ -90,7 +91,7 @@
                             </a>
                         </td>
                     {% endif %}
-                    <td href="#" class="username" data-pk={{ us.id }}>{{ us.username }}</td>
+                    <td><a href="/u/{{ us.username }}">{{ us.username }}</a></td>
                     <td href="#" class="first_name" data-pk={{ us.id }}>{{ us.first_name }}</td>
                     <td href="#" class="last_name" data-pk={{ us.id }}>{{ us.last_name }}</td>
                     <td class="dropdown">
@@ -109,8 +110,9 @@
                             {% endfor %}
                         </ul>
                     </td>
-                    <td>{{ us.date_joined }}</td>
-                    <td>{{ us.last_login }}</td>
+                    <td>{{ us.date_joined|date:"d-m-Y" }}</td>
+                    <td>{{ us.last_login |date:"d-m-Y" }}</td>
+                    <td href="#" class="telephone" data-pk={{ us.id }}>{{ us.telephone }}</td>
                     <td>{{ us.email }}</td>
                 </tr>
                 {% endfor %}
@@ -122,9 +124,9 @@
 
 <script>
 $(window).load(function() {
-        $('.username').editable({
+        $('.telephone').editable({
             type: 'text',
-            name: 'username',
+            name: 'telephone',
             url: '/api/panel/',
         });
 

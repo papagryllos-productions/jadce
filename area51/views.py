@@ -307,8 +307,8 @@ def panel(request):
                     user.first_name = request.POST['value']
                 elif request.POST['name'] == 'last_name':
                     user.last_name = request.POST['value']
-                elif request.POST['name'] == 'username':
-                    user.username = request.POST['value']
+                elif request.POST['name'] == 'telephone':
+                    user.telephone = request.POST['value']
                 user.save()
                 return HttpResponseRedirect('/moderator/')
             else:
