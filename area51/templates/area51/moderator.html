@@ -55,23 +55,23 @@
                     <td><strong>Last login</strong></td>
                     <td><strong>Contact</strong></td>
                 </tr>
-                {% for user in users %}
+                {% for us in users %}
                 <tr>
-                    <td>{{ user.id }}</td>
-                    {% if user.is_superuser %}
+                    <td>{{ us.id }}</td>
+                    {% if us.is_superuser %}
                     <td align="center"><i class="fa fa-check"></i></td>
                     {% else %}
                     <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_superuser">
+                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_superuser">
                             <button type="button" class="btn btn-xs btn-success">
                                 <i class="fa fa-check"></i>
                             </button>
                         </a>
                     </td>
                     {% endif %}
-                    {% if user.is_active %}
+                    {% if us.is_active %}
                     <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_active">
+                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
                             <button type="button" class="btn btn-xs btn-danger">
                                 <i class="fa fa-times"></i>
                             </button>
@@ -79,21 +79,21 @@
                     </td>
                     {% else %}
                     <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ user.id }}&name=is_active">
+                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
                             <button type="button" class="btn btn-xs btn-success">
                                 <i class="fa fa-check"></i>
                             </button>
                         </a>
                     </td>
                     {% endif %}
-                    <td href="#" class="username" data-pk={{ user.id }}>{{ user.username }}</td>
-                    <td href="#" class="first_name" data-pk={{ user.id }}>{{ user.first_name }}</td>
-                    <td href="#" class="last_name" data-pk={{ user.id }}>{{ user.last_name }}</td>
+                    <td href="#" class="username" data-pk={{ us.id }}>{{ us.username }}</td>
+                    <td href="#" class="first_name" data-pk={{ us.id }}>{{ us.first_name }}</td>
+                    <td href="#" class="last_name" data-pk={{ us.id }}>{{ us.last_name }}</td>
                     <td class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">User Events<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for event in all_events %}
-                                {% if event.creator == user %}
+                                {% if event.creator == us %}
                                 <li><a href="/e/{{ event.id }}/">{{ event.id }} {{ event.title }}
                                     {% if event.dealt %}
                                     <i class="fa fa-check"></i>
@@ -105,9 +105,9 @@
                             {% endfor %}
                         </ul>
                     </td>
-                    <td>{{ user.date_joined }}</td>
-                    <td>{{ user.last_login }}</td>
-                    <td>{{ user.email }}</td>
+                    <td>{{ us.date_joined }}</td>
+                    <td>{{ us.last_login }}</td>
+                    <td>{{ us.email }}</td>
                 </tr>
                 {% endfor %}
                 </tr>
