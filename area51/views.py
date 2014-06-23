@@ -39,6 +39,7 @@ def create_account(request):
     return render(request, 'area51/create_account.html')
 
 # New event page
+@login_required
 def new(request):
     form = EventForm()
     # Need to pull the categories from the DB to get them available
@@ -256,7 +257,7 @@ def homelogin(request):
             else:
                 return HttpResponse("User is deactivated. Please contact the administrator.")
         else:
-            raise Http404
+            return HttpResponse("Wrong username/password")
     else:
         return HttpResponse('This url is to be used for POST req ONLY!!!')
 
