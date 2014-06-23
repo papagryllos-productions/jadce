@@ -59,32 +59,36 @@
                 <tr>
                     <td>{{ us.id }}</td>
                     {% if us.is_superuser %}
-                    <td align="center"><i class="fa fa-check"></i></td>
+                        <td align="center"><i class="fa fa-check"></i></td>
                     {% else %}
-                    <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_superuser">
-                            <button type="button" class="btn btn-xs btn-success">
-                                <i class="fa fa-check"></i>
-                            </button>
-                        </a>
-                    </td>
+                        <td href="#" align="center">
+                            <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_superuser">
+                                <button type="button" class="btn btn-xs btn-success">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </a>
+                        </td>
                     {% endif %}
                     {% if us.is_active %}
-                    <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
-                            <button type="button" class="btn btn-xs btn-danger">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </a>
-                    </td>
+                        {% if user != us and us.is_superuser %}
+                            <td align="center"><i class="fa fa-check"></i></td>
+                        {% else %}
+                            <td href="#" align="center">
+                                <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
+                                    <button type="button" class="btn btn-xs btn-danger">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        {% endif %}
                     {% else %}
-                    <td href="#" align="center">
-                        <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
-                            <button type="button" class="btn btn-xs btn-success">
-                                <i class="fa fa-check"></i>
-                            </button>
-                        </a>
-                    </td>
+                        <td href="#" align="center">
+                            <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
+                                <button type="button" class="btn btn-xs btn-success">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </a>
+                        </td>
                     {% endif %}
                     <td href="#" class="username" data-pk={{ us.id }}>{{ us.username }}</td>
                     <td href="#" class="first_name" data-pk={{ us.id }}>{{ us.first_name }}</td>
@@ -94,13 +98,13 @@
                         <ul class="dropdown-menu">
                             {% for event in all_events %}
                                 {% if event.creator == us %}
-                                <li><a href="/e/{{ event.id }}/">{{ event.id }} {{ event.title }}
+                                    <li><a href="/e/{{ event.id }}/">{{ event.id }} {{ event.title }}
                                     {% if event.dealt %}
-                                    <i class="fa fa-check"></i>
+                                        <i class="fa fa-check"></i>
                                     {% else %}
-                                    <i class="fa fa-times"></i>
+                                        <i class="fa fa-times"></i>
                                     {% endif %}
-                                </a></li>
+                                    </a></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
