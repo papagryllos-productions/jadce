@@ -11,7 +11,7 @@
                 <h4 class="modal-title" id="myModalLabel">Mark Event Checked</h4>
             </div>
 
-            <form action="/api/checkevent/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+            <form action="/api/checkevent/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off" role="form">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div class="form-group">
