@@ -55,7 +55,11 @@
                         </a>
                         <a align="right" href="/list/">
                             <button type="button" class="btn btn-primary">
-                                <i class="fa fa-eye fa-fw"></i> My Events
+                                {% if user.is_superuser %}
+                                    <i class="fa fa-eye fa-fw"></i> Event list
+                                {% else %}
+                                    <i class="fa fa-eye fa-fw"></i> My Events
+                                {% endif %}
                             </button>
                         </a>
                         {% if user.is_staff %}
