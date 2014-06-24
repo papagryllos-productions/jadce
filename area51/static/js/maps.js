@@ -53,7 +53,7 @@ function initialize() {
                     var infowindow;
                     if (ev.fields.hasOwnProperty('description')) {
                         infowindow = new google.maps.InfoWindow({
-                            content: '<p>' + ev.fields['description'] + '</p>' +
+                            content: '<p>' + ev.fields['title'] + '</p>' +
                             '<p><strong>Created: </strong>' + ev.fields['date_of_creation'] + '</p>' +
                             "<p><a href='/e/" + ev['pk'] + "'>Event page</a></p>"
                         });

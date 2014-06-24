@@ -19,7 +19,7 @@
     <div class="col-md-9 personal-info">
       <h3>Personal info</h3>
 
-      <form action="/api/adduser/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+      <form action="/api/adduser/" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off" role="form">
         {% csrf_token %}
         <div class="form-group">
           <label class="col-lg-3 control-label">First Name:</label>
