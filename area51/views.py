@@ -105,15 +105,29 @@ def data(request):
                     sumd += td
             # They can also be divided by integers, and be pretty-printed with srt()
             average = sumd / number_dealt
+            # Prettifying
+            list_average = str(average).split(":")
+            list_average = list(map(float, list_average))
+            pretty_average = ""
+            if list_average[0] != 0:
+                if list_average[0] == 1:
+                    pretty_average += "%d hour," % list_average[0]
+                else:
+                    pretty_average += "%d hours," % list_average[0]
+            if list_average[1] != 0:
+                if list_average[1] == 1:
+                    pretty_average += " %d minute" % list_average[1]
+                else:
+                    pretty_average += " %d minutes" % list_average[1]
         else:
-            average = "No dealt events yet"
+            pretty_average = "No dealt events yet"
 
         # We return them as html since they get printed immediately
         response  = "<ul>"
         response += "<li><strong>Events so far:</strong> " + str(number_all) + "</li>"
         response += "<li><strong>Checked events:</strong> " + str(number_dealt) + "</li>"
         response += "<li><strong>Open events:</strong> " + str(number_open) + "</li>"
-        response += "<li><strong>Average completion time:</strong> " + str(average) + "</li>"
+        response += "<li><strong>Average completion time:</strong> " + pretty_average + "</li>"
         response += "</ul>"
     else:
         response  = "<p>No events yet</p>"
