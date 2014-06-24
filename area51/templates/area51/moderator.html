@@ -4,13 +4,39 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <hr>
             <p class="fa fa-book"> OPEN EVENTS: {{ open_events }}</p>
             <p class="fa fa-archive"> ARCHIVED EVENTS: {{ dealt_events }}</p>
-            <hr>
+	    <hr>
+        </div>
+    <div class="col-md-offset-6">
+	    <ul class="list-group">
+                <li href="#" class="list-group-item" align="center">Event Categories</li>
+		{% for cat in categories %}
+                <li href="#" class="list-group-item">
+                    <span href="#" class="cat-name" data-pk={{ cat.id }}><strong>{{ cat.name }}</strong></span>
+                    <a href="/api/panel/categories/?pk={{ cat.id }}&name=delete">
+                        <button type="button" class="btn btn-xs pull-right btn-danger">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </a>
+                </li>
+		{% endfor %}
+	    </ul>
+            <form action="/api/panel/categories/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+                <label class="col-lg-3 control-label">New Category:</label>
+                <div class="col-lg-6">
+                    <input name="cat_name" class="form-control" type="text" placeholder="I SAW THE DEVIL">
+                </div>
+                <a class="col-lg-3">
+                    <button type="submit" class="btn btn-xs pull-right btn-success">
+                        <p><strong>Add</strong></p>
+                    </button>
+                </a>
+            </form>
         </div>
     </div>
 </div>
+<br>
 <div class="container">
     <div class="row">
         <div class="panel panel-default">
@@ -109,7 +135,12 @@ $(window).load(function() {
             name: 'last_name',
             url: '/api/panel/',
         });
+
+        $('.cat-name').editable({
+            type: 'text',
+            name: 'yoyo',
+            url: '/api/panel/categories/',
+        });
 });
 </script>
 {% endblock %}
-
