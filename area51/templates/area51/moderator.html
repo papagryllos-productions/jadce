@@ -132,6 +132,10 @@
 
 <script>
 $(window).load(function() {
+        // make x-editable work with inline mode
+        $.fn.editable.defaults.mode = 'inline';
+
+        // x-editable assignments
         $('.telephone').editable({
             type: 'text',
             name: 'telephone',
