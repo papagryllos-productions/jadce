@@ -4,7 +4,9 @@ $(document).ready(function() {
         $(this).closest('form').find('input[type=text], textarea').val('');
     });
 
-    // this is to prevent sending empty forms
+    /*
+     * These are to prevent sending empty forms
+     */
     $('#submitting').click(function() {
         if ($('#username').val() == '') {
             $('.error').hide();
@@ -25,6 +27,7 @@ $(document).ready(function() {
             return true;
         }
     });
+
     $('#submitting-event').click(function() {
         if ($('#id_title').val() == '') {
             $('.error').hide();
@@ -35,6 +38,14 @@ $(document).ready(function() {
             return false;
         }
         return true;
+    });
+
+    $('#new-cat-button').click(function() {
+        if ($('#new-cat-field').val() == '') {
+            return false;
+        } else {
+            return true;
+        }
     });
 
     // For checking validity of the two password forms & the email
@@ -96,6 +107,7 @@ function username_availability() {
     });
 }
 
+/* aux function to check if 'obj' inside 'list' array */
 function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
