@@ -55,3 +55,6 @@ docs/_build/
 # data base files
 db.sqlite3
 media/
+
+# backup files
+*.swp
