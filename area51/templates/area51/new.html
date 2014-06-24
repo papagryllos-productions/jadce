@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-  <h1>New event -- What did you see?</h1>
+  <h1>Καινούργιο περιστατικό -- Τι είδες αυτή τη φορά?</h1>
   <hr>
 
   <form action="/api/addevent/" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off" role="form"
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="form-group">
         {{ form.title.errors }}
-        <label class="col-lg-3 control-label">Title:</label>
+        <label class="col-lg-3 control-label">Τίτλος:</label>
         <div class="col-lg-8">
           <div class="fieldWrapper">
             {{ form.title }}
@@ -20,13 +20,13 @@
       </div>
       <div class="form-group">
         {{ form.description.errors }}
-        <label class="col-lg-3 control-label">Description:</label>
+        <label class="col-lg-3 control-label">Περιγραφή:</label>
         <div class="col-lg-8">
           {{ form.description }}
         </div>
       </div>
       <div class="form-group">
-        <label class="col-lg-3 control-label">Category:</label>
+        <label class="col-lg-3 control-label">Κατηγορία:</label>
         <div class="col-lg-3">
           <select name="category" class="form-control">
             {% for cat in categories %}
@@ -37,7 +37,7 @@
       </div>
       <div class="form-group">
         {{ form.photo1.errors }} {{ form.photo2.errors }} {{ form.photo3.errors }} {{ form.photo4.errors }}
-        <label class="col-lg-3 control-label">Upload up to 4 pictures:</label>
+        <label class="col-lg-3 control-label">Ανέβασε εικόνες:</label>
         <div class="col-lg-8">
           <!-- The required attributes are gonna added later dynamically -->
           {{ form.photo1 }}
@@ -49,7 +49,7 @@
     </div>
 
     <hr>
-    <h2>We located you here: (feel free to change it)</h2>
+    <h2>Σε εντοπίσαμε εδώ: (Μπορείς να το αλλάξεις)</h2>
 
     <div class="row">
       <div class="container">
@@ -62,9 +62,9 @@
 
     <div id="submit_buttons" align="center" class="row row-fluid text-center">
       <div class="form-group">
-        <input type="submit" id="submitting-event" class="btn btn-primary btn-lg" value="Done">
+        <input type="submit" id="submitting-event" class="btn btn-primary btn-lg" value="Αποθήκευση">
         <a align="right" href="/">
-          <button type="button" class="btn btn-danger btn-lg">Cancel</button>
+          <button type="button" class="btn btn-danger btn-lg">Ακύρωση</button>
         </a>
       </div>
     </div>

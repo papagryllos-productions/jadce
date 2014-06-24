@@ -111,26 +111,26 @@ def data(request):
             pretty_average = ""
             if list_average[0] != 0:
                 if list_average[0] == 1:
-                    pretty_average += "%d hour," % list_average[0]
+                    pretty_average += "%d ώρα," % list_average[0]
                 else:
-                    pretty_average += "%d hours," % list_average[0]
+                    pretty_average += "%d ώρες," % list_average[0]
             if list_average[1] != 0:
                 if list_average[1] == 1:
-                    pretty_average += " %d minute" % list_average[1]
+                    pretty_average += " %d λεπτό" % list_average[1]
                 else:
-                    pretty_average += " %d minutes" % list_average[1]
+                    pretty_average += " %d λεπτά" % list_average[1]
         else:
-            pretty_average = "No dealt events yet"
+            pretty_average = "Κανένα περιστατικό ελεγμένο"
 
         # We return them as html since they get printed immediately
         response  = "<ul>"
-        response += "<li><strong>Events so far:</strong> " + str(number_all) + "</li>"
-        response += "<li><strong>Checked events:</strong> " + str(number_dealt) + "</li>"
-        response += "<li><strong>Open events:</strong> " + str(number_open) + "</li>"
-        response += "<li><strong>Average completion time:</strong> " + pretty_average + "</li>"
+        response += "<li><strong>Συνολικά περιστατικά:</strong> " + str(number_all) + "</li>"
+        response += "<li><strong>Ελεγμένα περιστατικά:</strong> " + str(number_dealt) + "</li>"
+        response += "<li><strong>Μη-ελεγμ. περιστατικά:</strong> " + str(number_open) + "</li>"
+        response += "<li><strong>Μέσος χρόνος μεχρι τον έλεγχο:</strong> " + pretty_average + "</li>"
         response += "</ul>"
     else:
-        response  = "<p>No events yet</p>"
+        response  = "<p>Κανένα περιστατικό.</p>"
     return HttpResponse(response)
 
 # API list of events

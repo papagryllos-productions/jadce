@@ -7,9 +7,9 @@
 <!-- Main jumbotron -->
 <div class="container">
     <div class="jumbotron jumb-color">
-        <h1>Hello, worlds</h1>
-        <p>The first alien reporting platform of the planet. Report Alien and UFOs sightings and see all the latest news.</p>
-        <p><a class="btn btn-primary btn-lg" href="create_account" role="button">Create an account now &raquo;</a></p>
+        <h1>Area 51</h1>
+        <p>Η πρώτη πλατφόρμα αναφοράς εξωγήινων και άλλων μεταφυσικών περιστατικών στην Ελλάδα και στον υπόλοιπο κόσμο.</p>
+        <p><a class="btn btn-primary btn-lg" href="create_account" role="button">Δημιουργία λογαριασμού &raquo;</a></p>
     </div>
 </div>
 {% endif %}
@@ -18,11 +18,11 @@
     <div class="row">
         <!-- List of data in the first column and the map in the second -->
         <div class="col-md-5"> <!-- These need to add up to 12 -->
-            <p align="left"><strong id="just-bigger-text">Latest Events: </strong>
+            <p align="left"><strong id="just-bigger-text">Τελευταία Περιστατικά: </strong>
             {% if user.is_authenticated %}
             <a align="right" href="new">
                 <button type="button" class="btn btn-success btn-sm pull-right">
-                    <i class="fa fa-plus fa-fw"></i> New event
+                    <i class="fa fa-plus fa-fw"></i> Καινούργιο Περιστατικό
                 </button>
             </a>
             {% endif %}
@@ -33,12 +33,12 @@
                     {% if event.dealt %}
                         <a href="/e/{{ event.id }}" class="list-group-item list-group-item-success">
                             {{ event.title }}
-                            <span class="label label-default pull-right">by {{ event.creator }}</span>
+                            <span class="label label-default pull-right">από τον {{ event.creator }}</span>
                         </a>
                     {% else %}
                         <a href="/e/{{ event.id }}" class="list-group-item list-group-item-warning">
                             {{ event.title }}
-                            <span class="label label-default pull-right">by {{ event.creator }}</span>
+                            <span class="label label-default pull-right">από τον {{ event.creator }}</span>
                         </a>
                     {% endif %}
                 {% endfor %}
@@ -48,7 +48,7 @@
             {% endif %}
         </div>
         <div id="map-main" class="col-md-7" >
-            <h3 align="center">Latest Sightings</h3>
+            <h3 align="center">Τα τελευταία 20 περιστατικά σε χάρτη</h3>
             <div id="map-canvas" class="container"> <!-- map here --> </div>
         </div>
     </div>
@@ -56,8 +56,8 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>Events Information:</h2>
+        <div class="col-md-5">
+            <h2>Περισσότερες πληροφορίες:</h2>
             <div id="dynamic"><!-- AJAX data here --></div>
         </div>
     </div>

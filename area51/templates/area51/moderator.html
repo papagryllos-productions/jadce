@@ -5,26 +5,26 @@
     <div class="row">
         <div class="col-md-5">
             <div class="well well-lg">
-                <p class="fa fa-book"> OPEN EVENTS: {{ open_events }}</p>
+                <p class="fa fa-book"> Ανοιχτά Περιστατικά: {{ open_events }}</p>
                 <br>
-                <p class="fa fa-archive"> ARCHIVED EVENTS: {{ dealt_events }}</p>
+                <p class="fa fa-archive"> Ελεγμένα Περιστατικά: {{ dealt_events }}</p>
                 <hr>
-                <p><i class="fa fa-info-circle fa-lg"></i> Click the table cell to edit user data.</p>
-                <p><i class="fa fa-info-circle fa-lg"></i> Category deletion does not affect events.</p>
-                <p><i class="fa fa-info-circle fa-lg"></i> You cannot demote a moderator.</p>
-                <p><i class="fa fa-info-circle fa-lg"></i> You cannot deactivate other moderators.</p>
+                <p><i class="fa fa-info-circle fa-lg"></i> Κάνε κλικ στο κελί για να επεξεργαστείς δεδομένα.</p>
+                <p><i class="fa fa-info-circle fa-lg"></i> Η διαγραφή κατηγοριών δεν επηρεάζει τα περιστατικά.</p>
+                <p><i class="fa fa-info-circle fa-lg"></i> Δεν μπορείς να υποβαθμίσεις admins.</p>
+                <p><i class="fa fa-info-circle fa-lg"></i> Δεν μπορείς να διαγράψεις άλλον admin.</p>
             </div>
         </div>
         <div class="col-md-offset-6">
             <div class="panel panel-default">
-                <div class="panel-heading text-center">Edit Event Categories</div>
+                <div class="panel-heading text-center">Επεξεργασία Κατηγοριών</div>
                 <ul class="list-group">
                     {% for cat in categories %}
                     <li href="#" class="list-group-item">
                         <span href="#" class="cat-name" data-pk={{ cat.id }}><strong>{{ cat.name }}</strong></span>
                         <a href="/api/panel/categories/?pk={{ cat.id }}&name=delete">
                             <button type="button" class="btn btn-xs pull-right btn-danger">
-                                <i class="fa fa-times"></i>
+                                <i class="fa fa-times"></i> Διαγραφή
                             </button>
                         </a>
                     </li>
@@ -36,7 +36,7 @@
                     <input name="cat_name" class="form-control" type="text" id="new-cat-field" placeholder="New category">
                     <span class="input-group-btn">
                         <button id="new-cat-button" type="submit" class="btn btn-success">
-                            <i class="fa fa-floppy-o"></i> Add
+                            <i class="fa fa-floppy-o"></i> Αποθήκευση
                         </button>
                     </span>
                 </div>
@@ -54,14 +54,14 @@
                 <tr>
                     <td>#</td>
                     <td align="center"><strong>Moderator?</strong></td>
-                    <td align="center"><strong>Status</strong></td>
-                    <td align="center"><strong>Username</strong></td>
-                    <td align="center"><strong>First name</strong></td>
-                    <td align="center"><strong>Last name</strong></td>
-                    <td align="center"><strong>Events</strong></td>
-                    <td align="center"><strong>Date Joined</strong></td>
-                    <td align="center"><strong>Last login</strong></td>
-                    <td align="center"><strong>Phone</strong></td>
+                    <td align="center"><strong>Ενεργός?</strong></td>
+                    <td align="center"><strong>username</strong></td>
+                    <td align="center"><strong>Όνομα</strong></td>
+                    <td align="center"><strong>Επίθετο</strong></td>
+                    <td align="center"><strong>Περιστατικά</strong></td>
+                    <td align="center"><strong>Μέλος απο</strong></td>
+                    <td align="center"><strong>Τελευταίο login</strong></td>
+                    <td align="center"><strong>Τηλέφωνο</strong></td>
                     <td align="center"><strong>email</strong></td>
                 </tr>
                 {% for us in users %}
@@ -73,7 +73,7 @@
                         <td href="#" align="center">
                             <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_superuser">
                                 <button type="button" class="btn btn-xs btn-success">
-                                    <i class="fa fa-check"></i> Promote
+                                    <i class="fa fa-check"></i> Προαγωγή
                                 </button>
                             </a>
                         </td>
@@ -85,7 +85,7 @@
                             <td href="#" align="center">
                                 <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
                                     <button type="button" class="btn btn-xs btn-danger">
-                                        <i class="fa fa-times"></i> Deactivate
+                                        <i class="fa fa-times"></i> Απενεργοποίηση
                                     </button>
                                 </a>
                             </td>
@@ -94,7 +94,7 @@
                         <td href="#" align="center">
                             <a align="right" href="/api/panel/?pk={{ us.id }}&name=is_active">
                                 <button type="button" class="btn btn-xs btn-success">
-                                    <i class="fa fa-check"></i> Activate
+                                    <i class="fa fa-check"></i> Ενεργοποίηση
                                 </button>
                             </a>
                         </td>
@@ -103,7 +103,7 @@
                     <td align="center" href="#" class="first_name" data-pk={{ us.id }}>{{ us.first_name }}</td>
                     <td align="center" href="#" class="last_name" data-pk={{ us.id }}>{{ us.last_name }}</td>
                     <td align="center" class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">User Events<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Περιστατικά<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for event in all_events %}
                                 {% if event.creator == us %}

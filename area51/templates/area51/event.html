@@ -15,31 +15,31 @@
 
     <div class="col-md-6">
       <!-- Info here -->
-      <h3>"{{ event.title }}" event information:</h3>
+      <h3>Πληροφορίες περιστατικού "{{ event.title }}":</h3>
       <hr>
-      <p><strong>Creator: </strong><a href="/u/{{ event.creator }}">{{ event.creator }}</a></p>
-      <p><strong>Date: </strong>{{ event.date_of_creation }}</p>
-      <p><strong>Description: </strong>{{ event.description }}</p>
+      <p><strong>Δημιουργός: </strong><a href="/u/{{ event.creator }}">{{ event.creator }}</a></p>
+      <p><strong>Ημερομηνία: </strong>{{ event.date_of_creation }}</p>
+      <p><strong>Περιγραφή: </strong>{{ event.description }}</p>
       <p id="position">{{ event.position }}</p>
-      <p><strong>Category: </strong>{{ event.category }}</p>
+      <p><strong>Κατηγορία: </strong>{{ event.category }}</p>
       {% if event.dealt %}
-        <p><strong>Dealt by user: </strong> {{ contribution.admin_name.username }}, on {{ contribution.date_of_contrib }} <i class="fa fa-check"></i></p>
+        <p><strong>Ελέγχθηκε από τον: </strong> {{ contribution.admin_name.username }}, on {{ contribution.date_of_contrib }} <i class="fa fa-check"></i></p>
         <br>
         {% if contribution.comment %}
-          <p><strong>Comment by {{ contribution.admin_name.username }}:</strong></p>
+          <p><strong>Σχόλιο κατα τον έλεγχο {{ contribution.admin_name.username }}:</strong></p>
           <hr>
           {{ contribution.comment }}
         {% else %}
-          <p><strong>No Comment</strong></p>
+          <p><strong>Χωρίς σχόλιο</strong></p>
         {% endif %}
       {% else %}
-        <p><strong>Not yet checked</strong><i class="fa fa-times"></i></p>
+        <p><strong>Μη ελεγμένο </strong><i class="fa fa-times"></i></p>
       {% endif %}
     </div>
 
     {% if event.photo1 or event.photo2 or event.photo3 or event.photo4 %}
       <div class="col-md-6">
-        <h3>Available photos:</h3>
+        <h3>Φωτογραφίες:</h3>
         <hr>
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->

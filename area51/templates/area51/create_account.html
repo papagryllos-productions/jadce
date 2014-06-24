@@ -10,37 +10,37 @@
     <div class="col-md-3">
       <div class="text-center">
         <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-        <h6>upload a profile pic</h6>
+        <h6>profile pic</h6>
         <input type="file" class="form-control">
       </div>
     </div>
 
     <!-- edit form column -->
     <div class="col-md-9 personal-info">
-      <h3>Personal info</h3>
+      <h3>Προσωπικά στοιχεία</h3>
 
       <form action="/api/adduser/" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off" role="form">
         {% csrf_token %}
         <div class="form-group">
-          <label class="col-lg-3 control-label">First Name:</label>
+          <label class="col-lg-3 control-label">Όνομα:</label>
           <div class="col-lg-8">
             <input name="firstname" class="form-control" type="text" placeholder="John">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Last Name:</label>
+          <label class="col-lg-3 control-label">Επίθετο:</label>
           <div class="col-lg-8">
             <input name="lastname" class="form-control" type="text" placeholder="Apleesed">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email:</label>
+          <label class="col-lg-3 control-label">e-mail:</label>
           <div class="col-lg-8">
             <input name="email" id="email" class="form-control" type="text" placeholder="johnapleesed@company.tld">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Phone:</label>
+          <label class="col-lg-3 control-label">Τηλέφωνο:</label>
           <div class="col-lg-8">
             <input name="phone" class="form-control" type="text" placeholder="2610987654">
           </div>
@@ -52,13 +52,13 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Password:</label>
+          <label class="col-md-3 control-label">Κωδικός:</label>
           <div class="col-md-8">
             <input name="password1" id="password1" class="form-control" type="password" placeholder="password">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirm password:</label>
+          <label class="col-md-3 control-label">Επιβεβαίωση κωδικού:</label>
           <div class="col-md-8">
             <input name="password2" id="password2" class="form-control" type="password" placeholder="password">
           </div>
@@ -66,9 +66,9 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input type="submit" id="submitting" class="btn btn-primary" value="Create">
+            <input type="submit" id="submitting" class="btn btn-primary" value="Δημιουργία">
             <span></span>
-            <input type="reset" id="clear" class="btn btn-danger" value="Clear">
+            <input type="reset" id="clear" class="btn btn-danger" value="Εκκαθάριση">
           </div>
         </div>
       </form>

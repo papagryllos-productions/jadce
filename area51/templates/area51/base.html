@@ -56,9 +56,9 @@
                         <a align="right" href="/list/">
                             <button type="button" class="btn btn-primary">
                                 {% if user.is_superuser %}
-                                    <i class="fa fa-eye fa-fw"></i> Event list
+                                    <i class="fa fa-eye fa-fw"></i> Λίστα Περιστατικών
                                 {% else %}
-                                    <i class="fa fa-eye fa-fw"></i> My Events
+                                    <i class="fa fa-eye fa-fw"></i> Τα Περιστατικά μου
                                 {% endif %}
                             </button>
                         </a>
@@ -73,13 +73,13 @@
                         {% if user.is_superuser %}
                         <a align="right" href="/moderator">
                             <button type="button" class="btn btn-success">
-                                <i class="fa fa-edit fa-fw"></i> Moderate
+                                <i class="fa fa-edit fa-fw"></i> Διαχείρηση
                             </button>
                         </a>
                         {% endif %}
                         {% endif %}
 
-                        <input type="submit" class="btn btn-danger" value="Log out">
+                        <input type="submit" class="btn btn-danger" value="Αποσύνδεση">
                     </form>
                 </div>
                 {% else %}
@@ -90,9 +90,9 @@
                             <input name="username" type="text" placeholder="Username" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input name="password" type="password" placeholder="Password" class="form-control">
+                            <input name="password" type="password" placeholder="Κωδικός" class="form-control">
                         </div>
-                        <input type="submit" class="btn btn-success" value="Log in">
+                        <input type="submit" class="btn btn-success" value="Σύνδεση">
                     </form>
                 </div>
                 {% endif %}

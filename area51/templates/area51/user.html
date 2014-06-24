@@ -8,32 +8,32 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit your profile</h4>
+        <h4 class="modal-title" id="myModalLabel">Επεξεργασία προφίλ</h4>
       </div>
 
       <form action="/api/edituser/" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
         <div class="modal-body">
           {% csrf_token %}
           <div class="form-group">
-            <label class="col-lg-3 control-label">First Name:</label>
+            <label class="col-lg-3 control-label">Όνομα:</label>
             <div class="col-lg-8">
               <input name="firstname" class="form-control" type="text" value="{{ us.first_name }}">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Last Name:</label>
+            <label class="col-lg-3 control-label">Επίθετο:</label>
             <div class="col-lg-8">
               <input name="lastname" class="form-control" type="text" value="{{ us.last_name }}">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
+            <label class="col-lg-3 control-label">e-mail:</label>
             <div class="col-lg-8">
               <input name="email" id="email" class="form-control" type="text" value="{{ us.email }}">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Phone:</label>
+            <label class="col-lg-3 control-label">Τηλέφωνο:</label>
             <div class="col-lg-8">
               <input name="phone" class="form-control" type="text" value="{{ us.telephone }}">
             </div>
@@ -41,8 +41,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-primary" value="Save changes">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Ακύρωση</button>
+          <input type="submit" class="btn btn-primary" value="Αποθήκευση">
         </div>
       </form>
     </div>
@@ -55,7 +55,7 @@
     {% if user.is_authenticated %}
       {% if user.username == us.username %}
         <!-- edit profile modal button trigger -->
-        <button align="right" class="btn btn-warning btn pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-cog fa-fw"></i>Edit Profile</button></p>
+        <button align="right" class="btn btn-warning btn pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-cog fa-fw"></i>Επεξεργασία</button></p>
       {% endif %}
     {% else %}
       </p> <!-- just closing the open paragraph here -->
@@ -73,24 +73,19 @@
 
     <!-- right column -->
     <div class="col-md-9 personal-info">
-      <h3>Personal info</h3>
+      <h3>Προσωπικά στοιχεία</h3>
       <hr>
 
-      <p><strong>First Name: </strong>{{ us.first_name }}</p>
-      <p><strong>Last Name: </strong>{{ us.last_name }}</p>
-      <p><strong>Email: </strong>{{ us.email }}</p>
-      <p><strong>Phone: </strong>{{ us.telephone }}</p>
+      <p><strong>Όνομα: </strong>{{ us.first_name }}</p>
+      <p><strong>Επίθετο: </strong>{{ us.last_name }}</p>
+      <p><strong>e-mail: </strong>{{ us.email }}</p>
+      <p><strong>Τηλέφωνο: </strong>{{ us.telephone }}</p>
       {% if us.is_superuser %}
-      <p><strong>Admin? </strong><i class="fa fa-check"></i></p>
+      <p><strong>Admin? </strong><i class="fa fa-check"></i> Ναι</p>
       {% else %}
-      <p><strong>Admin? </strong><i class="fa fa-times"></i></p>
+      <p><strong>Admin? </strong><i class="fa fa-times"></i> Όχι</p>
       {% endif %}
-      {% if us.is_staff %}
-      <p><strong>Staff? </strong><i class="fa fa-check"></i></p>
-      {% else %}
-      <p><strong>Staff? </strong><i class="fa fa-times"></i></p>
-      {% endif %}
-      <p><strong>Date joined: </strong>{{ us.date_joined }}</p>
+      <p><strong>Μέλος απο: </strong>{{ us.date_joined }}</p>
     </div>
   </div>
   <hr>
