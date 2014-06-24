@@ -320,9 +320,14 @@ def panel(request):
         user = M.User.objects.get(pk=request.GET['pk'])
         if 'name' in request.GET:
             if request.GET['name'] == 'is_active':
-                user.is_active = not user.is_active
+                if not user.is_superuser or request.user == user:
+                    # Superusers can do everything on regular users
+                    # and deactivate only themselves (not other superusers)
+                    user.is_active = not user.is_active
             if request.GET['name'] == 'is_superuser':
-                user.is_superuser = not user.is_superuser
+                # We only can promote from here
+                if not user.is_superuser:
+                    user.is_superuser = True
             user.save()
             return HttpResponseRedirect('/moderator/')
         else:
