@@ -24,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^api/login/$', views.homelogin, name='homelogin'),
     url(r'^api/logout/$', views.homelogout, name='homelogout'),
     url(r'^api/panel/$', views.panel, name='panel'),
+    url(r'^api/panel/categories/$', views.cat_panel, name='cat_panel'),
     url(r'^feed/$', LatestEntriesFeed()),
 )

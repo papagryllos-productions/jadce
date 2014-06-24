@@ -286,7 +286,8 @@ def mod(request):
     count_all = len(all_events)
     dealt_events = len(M.Event.objects.filter(dealt=True))
     open_events  = count_all - dealt_events
-    data = { 'dealt_events': dealt_events, 'open_events': open_events, 'all_events': all_events, 'users': users}
+    categories =  M.Aliencategories.objects.all()
+    data = { 'dealt_events': dealt_events, 'open_events': open_events, 'all_events': all_events, 'users': users, 'categories': categories}
     return render(request, 'area51/moderator.html', data)
 
 # POST view for moderator panel
@@ -325,3 +326,31 @@ def panel(request):
             return HttpResponseRedirect('/moderator/')
         else:
             return HttpResponse('Wrong my friend')
+
+# POST view for editting categories
+@csrf_exempt
+@login_required
+def cat_panel(request):
+    # Only moderators allowed
+    if not request.user.is_superuser:
+        return HttpResponse('505 Forbidden. User is not a moderator.')
+
+    if request.method == "POST":
+        if 'pk' in request.POST:
+            cat_obj = M.Aliencategories.objects.get(pk=request.POST['pk'])
+            if 'name' in request.POST:
+                cat_obj.name = request.POST['value']
+                cat_obj.save()
+                return HttpResponseRedirect('/moderator/')
+        elif 'cat_name' in request.POST:
+            category = M.Aliencategories(name=request.POST['cat_name'])
+            category.save()
+            return HttpResponseRedirect('/moderator/')
+    else:
+        if 'pk' in request.GET:
+            cat_obj = M.Aliencategories.objects.get(pk=request.GET['pk'])
+        if 'name' in request.GET:
+            if request.GET['name'] == 'delete':
+                cat_obj.delete()
+                return HttpResponseRedirect('/moderator/')
+        return HttpResponse('No no')
