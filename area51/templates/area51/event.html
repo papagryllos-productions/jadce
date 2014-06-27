@@ -33,7 +33,16 @@
           <p><strong>No Comment</strong></p>
         {% endif %}
       {% else %}
-        <p><strong>Not yet checked</strong><i class="fa fa-times"></i></p>
+      <p><strong>Not yet checked</strong><i class="fa fa-times"></i></p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-4">
+            <form action="/api/checkevent/{{ event.id}}/" id="modal_form" method="post" accept-charset="utf-8" class="form-horizontal" role="form">
+              <input type="submit" name="check_it" id="check_button" class="btn btn-primary" value="Mark it Checked">
+            </form>
+          </div>
+        </div>
+      </div>
       {% endif %}
     </div>
 
@@ -82,4 +91,19 @@
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAycmK-3YhwtVLVR8lAQ3sD3zGFy1gfSrk&sensor=true&output=embed"></script>
 <script type="text/javascript" src="{% static "js/map-events.js" %}"></script>
+<script type='text/javascript'>
+$("#modal_form").submit(function(event) {
+
+       event.preventDefault();
+
+       var $form = $( this ),
+       url = $form.attr( 'action' );
+
+       /* Send the data using post */
+       var posting = $.post( url );
+       posting.done(function( data ) {
+               alert('success');
+               });
+       });
+</script>
 {% endblock %}
