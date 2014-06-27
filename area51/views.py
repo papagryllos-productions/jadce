@@ -235,7 +235,6 @@ def addevent(request):
 
 # POST view for checking an event
 @login_required
-@csrf_exempt
 def checkevent(request, given_id):
     c = {}
     c.update(csrf(request))
