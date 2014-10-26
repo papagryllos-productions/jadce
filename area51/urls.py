@@ -6,6 +6,7 @@ from django.conf.urls import patterns, url
 from area51 import views
 from area51.feeds import LatestEntriesFeed
 
+# TODO: reduce urls by using the same for POST & PUT actions
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
     url(r'^create_account/$', views.create_account, name='create_account'),
